@@ -13,18 +13,26 @@ export default {
         sans: ['var(--font-sans)', ...fontFamily.sans],
       },
       colors: {
-        primary: {
-          violet: '#9e7f66',
-          'light-violet': '#939BF4',
-          'dark-blue': '#19202D',
-          midnight: '#121721',
+        violet: {
+          1: '#D5D8F7',
+          2: '#C5C9F4',
+          3: '#939BF4',
+          4: '#5964E0',
         },
-        secondary: {
-          'light-grey': '#F4F6F8',
-          grey: '#9DAEC2',
-          'dark-grey': '#6E8098',
+        blue: {
+          1: '#9DAEC2',
+          2: '#6E8098',
+          3: '#19202D',
+          4: '#121721',
+        },
+        grey: {
+          1: '#F4F6F8',
+          2: '#E7E8E9',
+          3: '#6A6E77',
+          4: '#303642',
         },
       },
+
       screens: {
         mobile: '375px',
         tablet: '640px',

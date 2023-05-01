@@ -12,9 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='en'>
-      <body className={cn('w-full min-h-xcreen h-full font-sans', kumbhSans.variable)}>
-        {children}
-      </body>
+      <body className={cn('font-sans', kumbhSans.variable)}>{children}</body>
     </html>
   );
 }
