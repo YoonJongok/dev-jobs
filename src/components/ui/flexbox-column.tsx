@@ -19,18 +19,18 @@ export interface FlexBoxColumnProps
   children: ReactNode;
 }
 
-export default function FlexBoxColumn({
+export const FlexBoxColumn = ({
   className,
   intent,
   modifier,
   children,
   fullWidth,
   ...props
-}: FlexBoxColumnProps) {
+}: FlexBoxColumnProps) => {
   return (
     <div {...props} className={flexBoxColumn({ intent, className, modifier, fullWidth })}>
       {children}
     </div>
   );
-}
+};
 

@@ -27,18 +27,18 @@ export interface FlexBoxRowProps
   children: ReactNode;
 }
 
-export default function FlexBoxRow({
+export const FlexBoxRow = ({
   className,
   intent,
   modifier,
   fullWidth,
   children,
   ...props
-}: FlexBoxRowProps) {
+}: FlexBoxRowProps) => {
   return (
     <div {...props} className={flexBoxRow({ intent, className, modifier, fullWidth })}>
       {children}
     </div>
   );
-}
+};
 

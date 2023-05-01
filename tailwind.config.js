@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+import { fontFamily } from 'tailwindcss/defaultTheme';
+
+export default {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -7,9 +9,26 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      fontFamily: {
+        sans: ['var(--font-sans)', ...fontFamily.sans],
+      },
+      colors: {
+        primary: {
+          violet: '#9e7f66',
+          'light-violet': '#939BF4',
+          'dark-blue': '#19202D',
+          midnight: '#121721',
+        },
+        secondary: {
+          'light-grey': '#F4F6F8',
+          grey: '#9DAEC2',
+          'dark-grey': '#6E8098',
+        },
+      },
+      screens: {
+        mobile: '375px',
+        tablet: '640px',
+        desktop: '1280px',
       },
     },
   },

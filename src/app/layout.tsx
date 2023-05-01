@@ -1,5 +1,5 @@
-import { cn } from '@/lib/utils';
 import './globals.css';
+import { cn } from '@/lib/utils';
 import { Kumbh_Sans } from 'next/font/google';
 
 const kumbhSans = Kumbh_Sans({ subsets: ['latin'], variable: '--font-sans' });
