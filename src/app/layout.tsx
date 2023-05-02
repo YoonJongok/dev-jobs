@@ -1,3 +1,4 @@
+import { Header } from '@/components/header';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { Kumbh_Sans } from 'next/font/google';
@@ -12,7 +13,10 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='en'>
-      <body className={cn('font-sans', kumbhSans.variable)}>{children}</body>
+      <body className={cn('font-sans bg-black', kumbhSans.variable)}>
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }
