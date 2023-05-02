@@ -1,3 +1,4 @@
+'use client';
 import { cn } from '@/lib/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import React from 'react';
@@ -47,13 +48,7 @@ export interface ButtonProps
   children: React.ReactNode;
 }
 
-export const Button: React.FC<ButtonProps> = ({
-  className,
-  intent,
-  fullWidth,
-  children,
-  ...props
-}) => {
+export const Button = ({ className, intent, fullWidth, children, ...props }: ButtonProps) => {
   return (
     <button className={cn(buttonVariants({ intent, fullWidth, className }))} {...props}>
       {children}
