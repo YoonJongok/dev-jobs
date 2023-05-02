@@ -17,6 +17,7 @@ export interface FlexBoxColumnProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof flexBoxColumn> {
   children: ReactNode;
+  as?: 'main';
 }
 
 export const FlexBoxColumn = ({
@@ -25,8 +26,17 @@ export const FlexBoxColumn = ({
   modifier,
   children,
   fullWidth,
+  as,
   ...props
 }: FlexBoxColumnProps) => {
+  if (as && as === 'main') {
+    return (
+      <main {...props} className={flexBoxColumn({ intent, className, modifier, fullWidth })}>
+        {children}
+      </main>
+    );
+  }
+
   return (
     <div {...props} className={flexBoxColumn({ intent, className, modifier, fullWidth })}>
       {children}

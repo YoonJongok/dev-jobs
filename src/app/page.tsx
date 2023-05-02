@@ -1,8 +1,11 @@
-import { Container } from '@/components/container';
-import { SearchForm } from '@/components/search-form';
-import { Button } from '@/components/ui/button';
+import { JobCard } from '@/components/job-card';
+import { FlexBoxColumn } from '@/components/ui/flexbox-column';
 
 export default function Home() {
-  return <Container>hi</Container>;
+  return (
+    <FlexBoxColumn as='main' className='items-center py-14 px-6'>
+      <JobCard />
+    </FlexBoxColumn>
+  );
 }
 

@@ -7,10 +7,6 @@ interface LayoutProps {
 }
 
 export const Container = ({ children }: LayoutProps) => {
-  return (
-    <FlexBoxColumn className={cn('w-full  h-full min-h-screen dark:bg-black-900')}>
-      {children}
-    </FlexBoxColumn>
-  );
+  return <FlexBoxColumn className={cn('w-full  h-full min-h-screen')}>{children}</FlexBoxColumn>;
 };
 
