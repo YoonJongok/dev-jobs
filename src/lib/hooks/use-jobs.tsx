@@ -1,13 +1,10 @@
 'use client';
 import { useQuery } from '@tanstack/react-query';
 import JobsData from '@/store/jobs/data.json';
-
-// const fetchJobs = (): Promise<Job[]> => {
-//   return new ;
-// };
+import { Job } from '@/store/jobs/jobs.types';
 
 export const useJobs = () => {
-  return useQuery({
+  return useQuery<Job[]>({
     queryKey: ['jobs'],
     queryFn: () => new Promise((resolve) => resolve(JobsData)),
   });

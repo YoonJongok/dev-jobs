@@ -1,27 +1,36 @@
+import { Job } from '@/store/jobs/jobs.types';
 import { CompanyLogoIcon } from '../company-logo-icon';
 import { Icons } from '../icons';
 import { FlexBoxColumn } from './flexbox-column';
 import { FlexBoxRow } from './flexbox-row';
 import { Skeleton } from './skeleton';
+import Image from 'next/image';
 
-export const JobCard = () => {
+interface JobCardProps {
+  job: Job;
+}
+
+export const JobCard = ({ job }: JobCardProps) => {
   return (
     <FlexBoxColumn
       fullWidth
       className='relative pt-10 pl-8 pb-8 pr-2 bg-white rounded-md capitalize cursor-pointer'
     >
-      <div className='absolute -top-6 w-[50px] h-[50px] flex items-center justify-center rounded-[15px]'>
-        <CompanyLogoIcon.scoot />
+      <div
+        className='absolute -top-6 w-[50px] h-[50px] flex items-center justify-center rounded-[15px] bg-contain bg-no-repeat bg-center'
+        style={{ backgroundColor: job.logoBackground }}
+      >
+        <Image priority src={job.logo} alt='header' width={0} height={0} className='w-[30px]' />
       </div>
       <FlexBoxRow intent={'flexStartCenter'} className='gap-3'>
-        <p className='text-base text-blue-2'>5h ago</p>
+        <p className='text-base text-blue-2'>{job.postedAt}</p>
         <p className='flex items-center gap-2 text-base text-blue-2'>
-          <Icons.disc /> Full time
+          <Icons.disc /> {job.contract}
         </p>
       </FlexBoxRow>
-      <h3 className='font-bold mt-3 mb-[18px] '>Senior Software Engineer</h3>
-      <p className='text-base text-blue-2 mb-11'>Scoot</p>
-      <h4 className='text-violet-4 font-bold'>United kingdom</h4>
+      <h3 className='font-bold mt-3 mb-[18px] '>{job.position}</h3>
+      <p className='text-base text-blue-2 mb-11'>{job.company}</p>
+      <h4 className='text-violet-4 font-bold'>{job.location}</h4>
     </FlexBoxColumn>
   );
 };

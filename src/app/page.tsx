@@ -3,7 +3,7 @@ import { FlexBoxColumn } from '@/components/ui/flexbox-column';
 
 export default function Home() {
   return (
-    <FlexBoxColumn as='main' className='items-center py-14 px-6 gap-8'>
+    <FlexBoxColumn as='main' className='items-center py-14 px-6 gap-12'>
       <ListJobs />
     </FlexBoxColumn>
   );
