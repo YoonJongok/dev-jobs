@@ -1,5 +1,5 @@
+'use client';
 import { Job } from '@/store/jobs/jobs.types';
-import { CompanyLogoIcon } from '../company-logo-icon';
 import { Icons } from '../icons';
 import { FlexBoxColumn } from './flexbox-column';
 import { FlexBoxRow } from './flexbox-row';
@@ -25,7 +25,7 @@ export const JobCard = ({ job }: JobCardProps) => {
       <FlexBoxRow intent={'flexStartCenter'} className='gap-3'>
         <p className='text-base text-blue-2'>{job.postedAt}</p>
         <p className='flex items-center gap-2 text-base text-blue-2'>
-          <Icons.disc /> {job.contract}
+          <Icons.disc className='fill-blue-2' /> {job.contract}
         </p>
       </FlexBoxRow>
       <h3 className='font-bold mt-3 mb-[18px] '>{job.position}</h3>
@@ -46,7 +46,7 @@ JobCard.Skeleton = function JobsCardSkeleton() {
       <FlexBoxRow intent={'flexStartCenter'} className='gap-3 h-[20px]'>
         <Skeleton className='w-[56px] h-full text-base bg-grey-2' />
         <Skeleton className='w-[80px]  h-full flex items-center gap-2'>
-          <Icons.disc />
+          <Icons.disc className='fill-blue-2' />
           <Skeleton className='w-full h-full bg-grey-2' />
         </Skeleton>
       </FlexBoxRow>
