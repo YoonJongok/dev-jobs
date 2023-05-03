@@ -1,9 +1,6 @@
 'use client';
-import React, { useState } from 'react';
-import { FlexBoxColumn } from './ui/flexbox-column';
-import { CompanyLogoIcon } from './company-logo-icon';
-import { FlexBoxRow } from './ui/flexbox-row';
-import { Icons } from './icons';
+import React from 'react';
+
 import { useJobs } from '@/lib/hooks/use-jobs';
 import { JobCard } from './ui/job-card';
 

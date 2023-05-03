@@ -13,7 +13,7 @@ interface DarkModeSwitchProps {
 export const DarkModeSwitch: React.FC<DarkModeSwitchProps> = ({ isDarkMode, toggleTheme }) => {
   return (
     <FlexBoxRow intent={'flexEndCenter'} className='gap-4'>
-      <Icons.moon />
+      <Icons.moon className='fill-white' />
       <Switch
         checked={isDarkMode}
         onChange={toggleTheme}
@@ -30,8 +30,8 @@ export const DarkModeSwitch: React.FC<DarkModeSwitchProps> = ({ isDarkMode, togg
             }
           )}
         />
-      </Switch>{' '}
-      <Icons.sun />
+      </Switch>
+      <Icons.sun className='fill-white' />
     </FlexBoxRow>
   );
 };
