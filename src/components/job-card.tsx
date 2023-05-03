@@ -10,7 +10,7 @@ export const JobCard = () => {
       fullWidth
       className='relative pt-10 pl-8 pb-8 pr-2 bg-white rounded-md capitalize'
     >
-      <div className='absolute -top-6 w-[50px] h-[50px] flex items-center justify-center bg-yellow-600 rounded-[15px]'>
+      <div className='absolute -top-6 w-[50px] h-[50px] flex items-center justify-center rounded-[15px]'>
         <CompanyLogoIcon.scoot />
       </div>
       <FlexBoxRow intent={'flexStartCenter'} className='gap-3'>

@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils/cn';
 import { Switch } from '@headlessui/react';
 import clsx from 'clsx';
 import React from 'react';
