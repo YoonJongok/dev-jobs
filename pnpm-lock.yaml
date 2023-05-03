@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@headlessui/react': ^1.7.14
+  '@hookform/resolvers': ^3.1.0
   '@svgr/webpack': ^7.0.0
   '@tanstack/query-core': ^4.29.5
   '@tanstack/react-query': ^4.29.5
@@ -27,12 +28,15 @@ specifiers:
   postcss: 8.4.23
   react: 18.2.0
   react-dom: 18.2.0
+  react-hook-form: ^7.43.9
   tailwind-merge: ^1.12.0
   tailwindcss: 3.3.2
   typescript: 5.0.4
+  zod: ^3.21.4
 
 dependencies:
   '@headlessui/react': 1.7.14_biqbaboplfbrettd7655fr4n2y
+  '@hookform/resolvers': 3.1.0_react-hook-form@7.43.9
   '@tanstack/query-core': 4.29.5
   '@tanstack/react-query': 4.29.5_biqbaboplfbrettd7655fr4n2y
   '@tanstack/react-query-devtools': 4.29.6_6ufraba7zs65ngvban5jjen7be
@@ -47,8 +51,10 @@ dependencies:
   postcss: 8.4.23
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-hook-form: 7.43.9_react@18.2.0
   tailwind-merge: 1.12.0
   tailwindcss: 3.3.2
+  zod: 3.21.4
 
 devDependencies:
   '@svgr/webpack': 7.0.0
@@ -1392,6 +1398,14 @@ packages:
       client-only: 0.0.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /@hookform/resolvers/3.1.0_react-hook-form@7.43.9:
+    resolution: {integrity: sha512-z0A8K+Nxq+f83Whm/ajlwE6VtQlp/yPHZnXw7XWVPIGm1Vx0QV8KThU3BpbBRfAZ7/dYqCKKBNnQh85BkmBKkA==}
+    peerDependencies:
+      react-hook-form: ^7.0.0
+    dependencies:
+      react-hook-form: 7.43.9_react@18.2.0
     dev: false
 
   /@humanwhocodes/config-array/0.11.8:
@@ -3972,6 +3986,15 @@ packages:
       scheduler: 0.23.0
     dev: false
 
+  /react-hook-form/7.43.9_react@18.2.0:
+    resolution: {integrity: sha512-AUDN3Pz2NSeoxQ7Hs6OhQhDr6gtF9YRuutGDwPQqhSUAHJSgGl2VeY3qN19MG0SucpjgDiuMJ4iC5T5uB+eaNQ==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
+    dev: false
+
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
@@ -4521,3 +4544,7 @@ packages:
   /yocto-queue/0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+
+  /zod/3.21.4:
+    resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
+    dev: false

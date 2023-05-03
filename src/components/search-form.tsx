@@ -4,24 +4,31 @@ import React, { useState } from 'react';
 import { Icons } from './icons';
 import { FlexBoxRow } from './ui/flexbox-row';
 import { ExtraFiltersModal } from './extra-filters-modal';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import z from 'zod';
 
-interface SearchFormProps {
-  placeholder: string;
-}
+const formSchema = z.object({
+  jobTitle: z.string().min(1, { message: 'Please enter a job title' }),
+});
+
+type Form = z.infer<typeof formSchema>;
 
 export const SearchForm = () => {
+  const [value, setValue] = useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const [value, setValue] = useState<string>('');
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Form>({
+    resolver: zodResolver(formSchema),
+  });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-  };
-
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-
-    setValue('');
+  const onSubmit: SubmitHandler<Form> = (data) => {
+    console.log(data);
   };
 
   function closeModal() {
@@ -32,13 +39,16 @@ export const SearchForm = () => {
     setIsOpen(true);
   }
 
+  console.log(watch('jobTitle'));
+
   return (
     <>
-      <form className='relative w-full'>
+      <form onSubmit={handleSubmit(onSubmit)} className='relative w-full'>
         <input
+          {...register('jobTitle')}
           placeholder='Filter by title...'
-          className='w-full  py-7 px-6 bg-grey-100 dark:bg-darkmode-container rounded-xl text-base  text-lightmode-primary dark:text-white placeholder-slate-400'
-          onChange={handleInputChange}
+          className='w-full  py-7 px-6 rounded-xl text-base  text-black  placeholder-slate-400 focus:outline-none'
+          // onChange={handleInputChange}
         />
 
         <FlexBoxRow className='items-center gap-6 absolute top-1/2 transform -translate-y-1/2 right-[16px]'>
@@ -47,17 +57,11 @@ export const SearchForm = () => {
           </FlexBoxRow>
           <button
             type='submit'
-            onClick={handleSubmit}
             className='w-12 h-12 flex justify-center items-center bg-violet-4 rounded-md'
           >
             <Icons.search className='w-6 h-6 fill-white  z-20' />
           </button>
         </FlexBoxRow>
-
-        {/* <button
-        type='submit'
-        onClick={handleSubmit}
-      ></button> */}
       </form>
 
       <ExtraFiltersModal isOpen={isOpen} closeModal={closeModal} />

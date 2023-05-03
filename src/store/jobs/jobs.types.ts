@@ -1,22 +1,25 @@
-export type Job = {
-  id: number;
-  company: string;
-  logo: string;
-  logoBackground: string;
-  position: string;
-  postedAt: string;
-  contract: string;
-  location: string;
-  website: string;
-  apply: string;
-  description: string;
-  requirements: {
-    content: string;
-    items: string[];
-  };
-  role: {
-    content: string;
-    items: string[];
-  };
-};
+import { z } from 'zod';
 
+export const jobSchema = z.object({
+  id: z.number(),
+  company: z.string(),
+  logo: z.string(),
+  logoBackground: z.string(),
+  position: z.string(),
+  postedAt: z.string(),
+  contract: z.string(),
+  location: z.string(),
+  website: z.string(),
+  apply: z.string(),
+  description: z.string(),
+  requirements: z.object({
+    content: z.string(),
+    items: z.array(z.string()),
+  }),
+  role: z.object({
+    content: z.string(),
+    items: z.array(z.string()),
+  }),
+});
+
+export type Job = z.infer<typeof jobSchema>;
