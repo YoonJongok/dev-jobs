@@ -1,12 +1,12 @@
 'use client';
-
 import React, { useState } from 'react';
 import { Icons } from './icons';
 import { FlexBoxRow } from './ui/flexbox-row';
 import { ExtraFiltersModal } from './extra-filters-modal';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
+import { useJobsStore } from '@/store/jobs';
 
 const formSchema = z.object({
   jobTitle: z.string().min(1, { message: 'Please enter a job title' }),
@@ -15,20 +15,24 @@ const formSchema = z.object({
 type Form = z.infer<typeof formSchema>;
 
 export const SearchForm = () => {
-  const [value, setValue] = useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [searchJobsByTitle, setSearchKeyword] = useJobsStore((state) => [
+    state.searchJobsByTitle,
+    state.setSearchKeyword,
+  ]);
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<Form>({
+  const { control, handleSubmit, watch } = useForm<Form>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      jobTitle: '',
+    },
+    mode: 'onSubmit',
   });
 
-  const onSubmit: SubmitHandler<Form> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<Form> = ({ jobTitle }) => {
+    if (!jobTitle) return;
+
+    searchJobsByTitle(jobTitle);
   };
 
   function closeModal() {
@@ -39,16 +43,23 @@ export const SearchForm = () => {
     setIsOpen(true);
   }
 
-  console.log(watch('jobTitle'));
-
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className='relative w-full'>
-        <input
-          {...register('jobTitle')}
-          placeholder='Filter by title...'
-          className='w-full  py-7 px-6 rounded-xl text-base  text-black  placeholder-slate-400 focus:outline-none'
-          // onChange={handleInputChange}
+        <Controller
+          name='jobTitle'
+          control={control}
+          render={({ field }) => (
+            <input
+              {...field}
+              onChange={(e) => {
+                field.onChange(e);
+                setSearchKeyword(e.target.value);
+              }}
+              placeholder='Filter by title...'
+              className='w-full  py-7 px-6 rounded-xl text-base  text-black  placeholder-slate-400 focus:outline-none'
+            />
+          )}
         />
 
         <FlexBoxRow className='items-center gap-6 absolute top-1/2 transform -translate-y-1/2 right-[16px]'>
