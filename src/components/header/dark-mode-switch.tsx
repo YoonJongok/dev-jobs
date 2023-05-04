@@ -2,8 +2,8 @@ import { cn } from '@/lib/utils/cn';
 import { Switch } from '@headlessui/react';
 import clsx from 'clsx';
 import React from 'react';
-import { FlexBoxRow } from './ui/flexbox-row';
-import { Icons } from './icons';
+import { FlexBoxRow } from '../ui/flexbox-row';
+import { Icons } from '../icons';
 
 interface DarkModeSwitchProps {
   isDarkMode: boolean;

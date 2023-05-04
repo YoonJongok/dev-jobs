@@ -8,6 +8,7 @@ interface JobsStore {
   searchKeyword?: string;
   setSearchKeyword: (keyword: string) => void;
 }
+
 export const useJobsStore = create<JobsStore>((set, get) => ({
   jobs: undefined,
   searchKeyword: undefined,
@@ -15,8 +16,6 @@ export const useJobsStore = create<JobsStore>((set, get) => ({
   setSearchKeyword: (keyword: string) => set({ searchKeyword: keyword }),
   searchJobsByTitle: (title: string) => {
     const jobs = get().jobs;
-
-    if (!title || title.length === 0) return set({ jobs });
 
     if (!jobs || jobs.length === 0) {
       return set({ jobs: [] });

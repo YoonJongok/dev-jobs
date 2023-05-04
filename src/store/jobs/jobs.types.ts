@@ -1,5 +1,16 @@
 import { z } from 'zod';
 
+export const locationSchema = z.enum([
+  'Default',
+  'United Kingdom',
+  'United States',
+  'Russia',
+  'Japan',
+  'Germany',
+  'New Zealand',
+  'Singapore',
+]);
+
 export const jobSchema = z.object({
   id: z.number(),
   company: z.string(),
@@ -8,7 +19,7 @@ export const jobSchema = z.object({
   position: z.string(),
   postedAt: z.string(),
   contract: z.string(),
-  location: z.string(),
+  location: locationSchema,
   website: z.string(),
   apply: z.string(),
   description: z.string(),
@@ -22,4 +33,6 @@ export const jobSchema = z.object({
   }),
 });
 
+export type Location = z.infer<typeof locationSchema>;
 export type Job = z.infer<typeof jobSchema>;
+

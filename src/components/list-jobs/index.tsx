@@ -1,11 +1,11 @@
 'use client';
 import React, { useEffect } from 'react';
 import { useJobs } from '@/lib/hooks/use-jobs';
-import { JobCard } from './ui/job-card';
-import { FlexBoxColumn } from './ui/flexbox-column';
+import { JobCard } from '../ui/job-card';
+import { FlexBoxColumn } from '../ui/flexbox-column';
 import { useJobsStore } from '@/store/jobs';
-import { filterJobListbySearchKeword } from '@/lib/utils/filter-job-list';
-import { FlexBoxRow } from './ui/flexbox-row';
+import { filterJobListbySearchKeword } from '@/lib/utils/jobs/filter-job-list';
+import { FlexBoxRow } from '../ui/flexbox-row';
 
 export const ListJobs = () => {
   const { data, isLoading, isSuccess } = useJobs();

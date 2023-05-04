@@ -1,9 +1,13 @@
 import React, { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { FlexBoxRow } from './ui/flexbox-row';
-import { Icons } from './icons';
-import { Button } from './ui/button';
-import { FlexBoxColumn } from './ui/flexbox-column';
+import { FlexBoxRow } from '../ui/flexbox-row';
+import { Icons } from '../icons';
+import { Button } from '../ui/button';
+import { FlexBoxColumn } from '../ui/flexbox-column';
+import { useFormContext } from 'react-hook-form';
+import { Form } from '.';
+import { Location } from '@/store/jobs/jobs.types';
+import { LocationAutocomplete } from './location-autocomplete';
 
 interface ExtraFiltersModalProps {
   isOpen: boolean;
@@ -12,6 +16,8 @@ interface ExtraFiltersModalProps {
 
 export const ExtraFiltersModal = ({ isOpen, closeModal }: ExtraFiltersModalProps) => {
   const [checked, setChecked] = useState(false);
+
+  const { register } = useFormContext<Form>();
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -41,16 +47,17 @@ export const ExtraFiltersModal = ({ isOpen, closeModal }: ExtraFiltersModalProps
             >
               <Dialog.Panel className='w-full min-w-[326px] transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all'>
                 <Dialog.Title as='h3' className='text-lg font-medium leading-6 text-gray-900'>
-                  <form className='relative w-full'>
-                    <FlexBoxRow className='items-center gap-6 absolute top-1/2 transform -translate-y-1/2 left-[24px]'>
+                  <FlexBoxColumn className='relative w-full'>
+                    {/* <FlexBoxRow className='items-center gap-6 absolute top-1/2 transform -translate-y-1/2 left-[24px]'>
                       <Icons.location className='w-6 h-6 fill-violet-4' />
-                    </FlexBoxRow>
-                    <input
+                    </FlexBoxRow> */}
+                    <LocationAutocomplete />
+                    {/* <input
+                      {...register('location')}
                       placeholder='Filter by location...'
                       className='w-full py-7 px-6 pl-14 bg-grey-100 dark:bg-darkmode-container text-base text-black  placeholder-slate-300 border border-b-2 focus:outline-none focus:ring-0'
-                      //   onChange={handleInputChange}
-                    />
-                  </form>
+                    /> */}
+                  </FlexBoxColumn>
                 </Dialog.Title>
                 <FlexBoxColumn className='items-start p-6 gap-6'>
                   <label
@@ -58,6 +65,7 @@ export const ExtraFiltersModal = ({ isOpen, closeModal }: ExtraFiltersModalProps
                     className='flex justify-start items-center gap-4 capitalize cursor-pointer font-bold text-base'
                   >
                     <input
+                      {...register('isFullTime')}
                       type='checkbox'
                       id='fulltime-checkbox'
                       checked={checked}

@@ -1,12 +1,12 @@
 'use client';
 import React, { useState } from 'react';
-import { FlexBoxColumn } from './ui/flexbox-column';
-import { FlexBoxRow } from './ui/flexbox-row';
-import { Icons } from './icons';
+import { FlexBoxColumn } from '../ui/flexbox-column';
+import { FlexBoxRow } from '../ui/flexbox-row';
+import { Icons } from '../icons';
 import { DarkModeSwitch } from './dark-mode-switch';
-import { SearchForm } from './search-form';
+import { SearchForm } from '../search-form';
 import Image from 'next/image';
-import HeaderImage from '../../public/images/header.png';
+import HeaderImage from '../../../public/images/header.png';
 
 export const Header = () => {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);

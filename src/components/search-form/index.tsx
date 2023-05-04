@@ -1,18 +1,21 @@
 'use client';
 import React, { useState } from 'react';
-import { Icons } from './icons';
-import { FlexBoxRow } from './ui/flexbox-row';
+import { Icons } from '../icons';
+import { FlexBoxRow } from '../ui/flexbox-row';
 import { ExtraFiltersModal } from './extra-filters-modal';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
 import { useJobsStore } from '@/store/jobs';
+import { locationSchema } from '@/store/jobs/jobs.types';
 
 const formSchema = z.object({
   jobTitle: z.string().min(1, { message: 'Please enter a job title' }),
+  location: locationSchema,
+  isFullTime: z.boolean(),
 });
 
-type Form = z.infer<typeof formSchema>;
+export type Form = z.infer<typeof formSchema>;
 
 export const SearchForm = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -21,13 +24,17 @@ export const SearchForm = () => {
     state.setSearchKeyword,
   ]);
 
-  const { control, handleSubmit, watch } = useForm<Form>({
+  const methods = useForm<Form>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       jobTitle: '',
+      location: 'Default',
+      isFullTime: false,
     },
     mode: 'onSubmit',
   });
+
+  const { control, handleSubmit, watch } = methods;
 
   const onSubmit: SubmitHandler<Form> = ({ jobTitle }) => {
     if (!jobTitle) return;
@@ -42,9 +49,10 @@ export const SearchForm = () => {
   function openModal() {
     setIsOpen(true);
   }
+  console.log(watch('location'));
 
   return (
-    <>
+    <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)} className='relative w-full'>
         <Controller
           name='jobTitle'
@@ -73,10 +81,9 @@ export const SearchForm = () => {
             <Icons.search className='w-6 h-6 fill-white  z-20' />
           </button>
         </FlexBoxRow>
+        <ExtraFiltersModal isOpen={isOpen} closeModal={closeModal} />
       </form>
-
-      <ExtraFiltersModal isOpen={isOpen} closeModal={closeModal} />
-    </>
+    </FormProvider>
   );
 };
 
