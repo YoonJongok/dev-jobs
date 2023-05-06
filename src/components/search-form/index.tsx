@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Icons } from '../icons';
 import { FlexBoxRow } from '../ui/flexbox-row';
 import { ExtraFiltersModal } from './extra-filters-modal';
@@ -10,17 +10,18 @@ import { useJobsStore } from '@/store/jobs';
 import { locationSchema } from '@/store/jobs/jobs.types';
 
 const formSchema = z.object({
-  jobTitle: z.string().min(1, { message: 'Please enter a job title' }),
-  location: locationSchema,
-  isFullTime: z.boolean(),
+  jobTitle: z.string().min(1, { message: 'Please enter a job title' }).optional(),
+  location: locationSchema.optional(),
+  isFullTime: z.boolean().default(false),
 });
 
 export type Form = z.infer<typeof formSchema>;
 
 export const SearchForm = () => {
+  const [isExtraFilterSet, setIsExtraFilterSet] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [searchJobsByTitle, setSearchKeyword] = useJobsStore((state) => [
-    state.searchJobsByTitle,
+  const [searchJobsByFilter, setSearchKeyword] = useJobsStore((state) => [
+    state.searchJobsByFilter,
     state.setSearchKeyword,
   ]);
 
@@ -36,20 +37,22 @@ export const SearchForm = () => {
 
   const { control, handleSubmit, watch } = methods;
 
-  const onSubmit: SubmitHandler<Form> = ({ jobTitle }) => {
-    if (!jobTitle) return;
-
-    searchJobsByTitle(jobTitle);
-  };
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-
   function openModal() {
     setIsOpen(true);
   }
-  console.log(watch('location'));
+
+  function closeModal(isExtraFiltersSubmitted = false) {
+    setIsOpen(false);
+    setIsExtraFilterSet(isExtraFiltersSubmitted);
+  }
+
+  const onSubmit: SubmitHandler<Form> = ({ jobTitle, isFullTime, location }) => {
+    console.log({ jobTitle, isFullTime, location });
+    searchJobsByFilter(jobTitle, location, isFullTime);
+    if (isOpen) {
+      closeModal();
+    }
+  };
 
   return (
     <FormProvider {...methods}>
@@ -81,7 +84,7 @@ export const SearchForm = () => {
             <Icons.search className='w-6 h-6 fill-white  z-20' />
           </button>
         </FlexBoxRow>
-        <ExtraFiltersModal isOpen={isOpen} closeModal={closeModal} />
+        <ExtraFiltersModal isOpen={isOpen} closeModal={closeModal} onSubmit={onSubmit} />
       </form>
     </FormProvider>
   );

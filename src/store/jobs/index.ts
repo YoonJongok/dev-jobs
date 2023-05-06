@@ -1,10 +1,10 @@
 import { create } from 'zustand';
-import { Job } from './jobs.types';
+import { Job, Location } from './jobs.types';
 
 interface JobsStore {
   jobs?: Job[];
   getJobs: (jobs: Job[]) => void;
-  searchJobsByTitle: (title: string) => void;
+  searchJobsByFilter: (title?: string, location?: Location, isFullTime?: boolean) => void;
   searchKeyword?: string;
   setSearchKeyword: (keyword: string) => void;
 }
@@ -14,18 +14,28 @@ export const useJobsStore = create<JobsStore>((set, get) => ({
   searchKeyword: undefined,
   getJobs: (jobs: Job[]) => set({ jobs }),
   setSearchKeyword: (keyword: string) => set({ searchKeyword: keyword }),
-  searchJobsByTitle: (title: string) => {
+  searchJobsByFilter: (title?: string, location?: Location, isFullTime = false) => {
     const jobs = get().jobs;
 
     if (!jobs || jobs.length === 0) {
       return set({ jobs: [] });
     }
 
-    const filteredJobs = jobs.filter((job) =>
-      job.position.toLowerCase().includes(title.toLowerCase())
-    );
+    const filteredJobs = jobs.filter((job) => {
+      return (
+        title &&
+        job.position.toLowerCase().includes(title.toLowerCase()) &&
+        location &&
+        job.location === location &&
+        isFullTime &&
+        job.contract === 'Full Time'
+      );
+    });
 
-    set({ jobs: filteredJobs });
+    console.log('filteredJobs', filteredJobs);
+
+    set({ jobs: filteredJobs || [] });
   },
+  // TODO: Clear search filters including 3 criterias: title, location, isFullTime
 }));
 

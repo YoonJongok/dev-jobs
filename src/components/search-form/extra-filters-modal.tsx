@@ -1,23 +1,27 @@
 import React, { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { FlexBoxRow } from '../ui/flexbox-row';
-import { Icons } from '../icons';
 import { Button } from '../ui/button';
 import { FlexBoxColumn } from '../ui/flexbox-column';
-import { useFormContext } from 'react-hook-form';
+import { SubmitHandler, useFormContext } from 'react-hook-form';
 import { Form } from '.';
-import { Location } from '@/store/jobs/jobs.types';
 import { LocationAutocomplete } from './location-autocomplete';
+import { useJobsStore } from '@/store/jobs';
 
 interface ExtraFiltersModalProps {
   isOpen: boolean;
-  closeModal: () => void;
+  closeModal: (isExtraFiltersSubmitted?: boolean) => void;
+  onSubmit: SubmitHandler<Form>;
 }
 
-export const ExtraFiltersModal = ({ isOpen, closeModal }: ExtraFiltersModalProps) => {
+export const ExtraFiltersModal = ({ isOpen, closeModal, onSubmit }: ExtraFiltersModalProps) => {
   const [checked, setChecked] = useState(false);
 
-  const { register } = useFormContext<Form>();
+  const { register, setValue, handleSubmit } = useFormContext<Form>();
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(e.target.checked);
+    setValue('isFullTime', e.target.checked);
+  };
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -48,15 +52,7 @@ export const ExtraFiltersModal = ({ isOpen, closeModal }: ExtraFiltersModalProps
               <Dialog.Panel className='w-full min-w-[326px] transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all'>
                 <Dialog.Title as='h3' className='text-lg font-medium leading-6 text-gray-900'>
                   <FlexBoxColumn className='relative w-full'>
-                    {/* <FlexBoxRow className='items-center gap-6 absolute top-1/2 transform -translate-y-1/2 left-[24px]'>
-                      <Icons.location className='w-6 h-6 fill-violet-4' />
-                    </FlexBoxRow> */}
                     <LocationAutocomplete />
-                    {/* <input
-                      {...register('location')}
-                      placeholder='Filter by location...'
-                      className='w-full py-7 px-6 pl-14 bg-grey-100 dark:bg-darkmode-container text-base text-black  placeholder-slate-300 border border-b-2 focus:outline-none focus:ring-0'
-                    /> */}
                   </FlexBoxColumn>
                 </Dialog.Title>
                 <FlexBoxColumn className='items-start p-6 gap-6'>
@@ -69,13 +65,18 @@ export const ExtraFiltersModal = ({ isOpen, closeModal }: ExtraFiltersModalProps
                       type='checkbox'
                       id='fulltime-checkbox'
                       checked={checked}
-                      onChange={() => setChecked((prev) => !prev)}
+                      onChange={handleCheckboxChange}
                       className="cursor-pointer relative w-6 h-6 appearance-none rounded-[0.25rem] bg-grey-2 outline-none before:pointer-events-none before:absolute before:h-6 before:w-6 before:scale-0 before:rounded-full before:bg-transparent before:opacity-0  before:content-[''] checked:border-primary checked:bg-violet-4 checked:before:opacity-[0.16] checked:after:absolute checked:after:mt-[4px] checked:after:ml-[0.5rem] checked:after:block checked:after:h-[0.8125rem] checked:after:w-[0.375rem] checked:after:rotate-45 checked:after:border-[0.125rem] checked:after:border-l-0 checked:after:border-t-0 checked:after:border-solid checked:after:border-white"
                     />
                     Full time only
                   </label>
 
-                  <Button type='button' fullWidth className='' onClick={closeModal}>
+                  <Button
+                    type='submit'
+                    fullWidth
+                    className='w-full h-12 flex justify-center items-center bg-violet-4 rounded-md text-white'
+                    onClick={handleSubmit(onSubmit)}
+                  >
                     Search
                   </Button>
                 </FlexBoxColumn>
