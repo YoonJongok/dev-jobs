@@ -1,27 +1,32 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { Button } from '../ui/button';
 import { FlexBoxColumn } from '../ui/flexbox-column';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
 import { Form } from '.';
 import { LocationAutocomplete } from './location-autocomplete';
-import { useJobsStore } from '@/store/jobs';
 
 interface ExtraFiltersModalProps {
   isOpen: boolean;
-  closeModal: (isExtraFiltersSubmitted?: boolean) => void;
+  closeModal: () => void;
   onSubmit: SubmitHandler<Form>;
 }
 
 export const ExtraFiltersModal = ({ isOpen, closeModal, onSubmit }: ExtraFiltersModalProps) => {
+  const { register, setValue, handleSubmit, reset } = useFormContext<Form>();
   const [checked, setChecked] = useState(false);
-
-  const { register, setValue, handleSubmit } = useFormContext<Form>();
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(e.target.checked);
     setValue('isFullTime', e.target.checked);
   };
+
+  useEffect(() => {
+    if (!isOpen) {
+      reset({ location: 'Default', isFullTime: false });
+      setChecked(false);
+    }
+  }, [isOpen, reset, setChecked]);
 
   return (
     <Transition appear show={isOpen} as={Fragment}>

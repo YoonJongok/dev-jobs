@@ -1,41 +1,60 @@
 import { create } from 'zustand';
-import { Job, Location } from './jobs.types';
+import { Contract, Job, Location } from './jobs.types';
+
+type SearchJobByFilterType = {
+  jobTitle?: string;
+  location?: Location;
+  contractType?: Contract;
+};
+
+export type SearchExtraFiltersType = {
+  location?: Location;
+  contractType?: Contract;
+};
 
 interface JobsStore {
   jobs?: Job[];
-  getJobs: (jobs: Job[]) => void;
-  searchJobsByFilter: (title?: string, location?: Location, isFullTime?: boolean) => void;
-  searchKeyword?: string;
+  setJobs: (jobs: Job[]) => void;
+  // searchJobsByFilter: ({ jobTitle, location, contractType }: SearchJobByFilterType) => void;
   setSearchKeyword: (keyword: string) => void;
+  searchKeyword?: string;
+  setExtraFilters: ({ contractType, location }: SearchExtraFiltersType) => void;
+  extraFilters?: SearchExtraFiltersType;
+  clearSearchFilters: () => void;
 }
 
 export const useJobsStore = create<JobsStore>((set, get) => ({
   jobs: undefined,
   searchKeyword: undefined,
-  getJobs: (jobs: Job[]) => set({ jobs }),
+  extraFilters: undefined,
+  setJobs: (jobs: Job[]) => set({ jobs }),
   setSearchKeyword: (keyword: string) => set({ searchKeyword: keyword }),
-  searchJobsByFilter: (title?: string, location?: Location, isFullTime = false) => {
-    const jobs = get().jobs;
+  setExtraFilters: ({ contractType, location }: SearchExtraFiltersType) =>
+    set({ extraFilters: { contractType, location } }),
+  // searchJobsByFilter: ({ jobTitle, location, contractType }: SearchJobByFilterType) => {
+  //   const jobs = get().jobs;
 
-    if (!jobs || jobs.length === 0) {
-      return set({ jobs: [] });
-    }
+  //   if (!jobs || jobs.length === 0) {
+  //     return set({ jobs: [] });
+  //   }
 
-    const filteredJobs = jobs.filter((job) => {
-      return (
-        title &&
-        job.position.toLowerCase().includes(title.toLowerCase()) &&
-        location &&
-        job.location === location &&
-        isFullTime &&
-        job.contract === 'Full Time'
-      );
-    });
+  //   console.log({ jobTitle, location, contractType });
+  //   const filteredJobs = jobs.filter((job) => {
+  //     return (
+  //       jobTitle &&
+  //       job.position.toLowerCase().includes(jobTitle.toLowerCase()) &&
+  //       location &&
+  //       job.location === location &&
+  //       contractType &&
+  //       job.contract === contractType
+  //     );
+  //   });
 
-    console.log('filteredJobs', filteredJobs);
-
-    set({ jobs: filteredJobs || [] });
-  },
-  // TODO: Clear search filters including 3 criterias: title, location, isFullTime
+  //   set({ jobs: filteredJobs });
+  // },
+  // TODO: when the user is clearing the search input, returns all jobs.
+  // TODO: Clear search filters including 3 criterias: title, location, isFullTime.
+  clearSearchFilters: () =>
+    set({ jobs: get().jobs, searchKeyword: undefined, extraFilters: undefined }),
 }));
 

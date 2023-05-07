@@ -4,26 +4,27 @@ import { useJobs } from '@/lib/hooks/use-jobs';
 import { JobCard } from '../ui/job-card';
 import { FlexBoxColumn } from '../ui/flexbox-column';
 import { useJobsStore } from '@/store/jobs';
-import { filterJobListbySearchKeword } from '@/lib/utils/jobs/filter-job-list';
+import { filterJobList } from '@/lib/utils/jobs/filter-job-list';
 import { FlexBoxRow } from '../ui/flexbox-row';
 
 export const ListJobs = () => {
-  const { data, isLoading, isSuccess } = useJobs();
+  const { data, isLoading, isSuccess, refetch } = useJobs();
 
-  const [jobs, searchKeyword, getJobs] = useJobsStore((state) => [
+  const [jobs, searchKeyword, setJobs, extraFilters] = useJobsStore((state) => [
     state.jobs,
     state.searchKeyword,
-    state.getJobs,
+    state.setJobs,
+    state.extraFilters,
   ]);
 
-  const foundJobs = filterJobListbySearchKeword(jobs, searchKeyword);
+  const foundJobs = filterJobList(jobs, searchKeyword, extraFilters);
   const projectExist = isSuccess && foundJobs.length > 0;
 
   useEffect(() => {
     if (isSuccess && data) {
-      getJobs(data);
+      setJobs(data);
     }
-  }, [data, getJobs, isSuccess]);
+  }, [data, setJobs, isSuccess]);
 
   if (isLoading) {
     return (

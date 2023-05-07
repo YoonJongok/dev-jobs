@@ -18,11 +18,11 @@ const formSchema = z.object({
 export type Form = z.infer<typeof formSchema>;
 
 export const SearchForm = () => {
-  const [isExtraFilterSet, setIsExtraFilterSet] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [searchJobsByFilter, setSearchKeyword] = useJobsStore((state) => [
-    state.searchJobsByFilter,
+  const [setExtraFilters, setSearchKeyword, clearSearchFilters] = useJobsStore((state) => [
+    state.setExtraFilters,
     state.setSearchKeyword,
+    state.clearSearchFilters,
   ]);
 
   const methods = useForm<Form>({
@@ -35,24 +35,36 @@ export const SearchForm = () => {
     mode: 'onSubmit',
   });
 
-  const { control, handleSubmit, watch } = methods;
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { isSubmitted },
+  } = methods;
 
   function openModal() {
     setIsOpen(true);
   }
 
-  function closeModal(isExtraFiltersSubmitted = false) {
+  function closeModal() {
     setIsOpen(false);
-    setIsExtraFilterSet(isExtraFiltersSubmitted);
   }
 
   const onSubmit: SubmitHandler<Form> = ({ jobTitle, isFullTime, location }) => {
     console.log({ jobTitle, isFullTime, location });
-    searchJobsByFilter(jobTitle, location, isFullTime);
+    clearSearchFilters();
+    setExtraFilters({ location, contractType: isFullTime ? 'Full Time' : 'Part Time' });
     if (isOpen) {
       closeModal();
     }
   };
+  console.log(isSubmitted);
+
+  useEffect(() => {
+    if (isSubmitted) {
+      reset();
+    }
+  }, [isSubmitted, reset]);
 
   return (
     <FormProvider {...methods}>
