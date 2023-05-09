@@ -4,7 +4,7 @@ import { FlexBoxRow } from '../ui/flexbox-row';
 import { Icons } from '../icons';
 import { Location } from '@/store/jobs/jobs.types';
 import { useFormContext } from 'react-hook-form';
-import { Form } from '.';
+import { Form } from './mobile-search-form';
 import { filterLocation } from '@/lib/utils/jobs/filter-location';
 
 export const LocationAutocomplete = () => {

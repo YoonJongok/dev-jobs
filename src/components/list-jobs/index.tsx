@@ -6,9 +6,12 @@ import { FlexBoxColumn } from '../ui/flexbox-column';
 import { useJobsStore } from '@/store/jobs';
 import { filterJobList } from '@/lib/utils/jobs/filter-job-list';
 import { FlexBoxRow } from '../ui/flexbox-row';
+import { breakPoints, useMediaQuery } from '@/lib/hooks/use-media-query';
 
 export const ListJobs = () => {
   const { data, isLoading, isSuccess, refetch } = useJobs();
+
+  const isTablet = useMediaQuery(breakPoints.tablet);
 
   const [jobs, searchKeyword, setJobs, extraFilters] = useJobsStore((state) => [
     state.jobs,

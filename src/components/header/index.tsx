@@ -4,9 +4,10 @@ import { FlexBoxColumn } from '../ui/flexbox-column';
 import { FlexBoxRow } from '../ui/flexbox-row';
 import { Icons } from '../icons';
 import { DarkModeSwitch } from './dark-mode-switch';
-import { SearchForm } from '../search-form';
+import { MobileSearchForm } from '../search-form/mobile-search-form';
 import Image from 'next/image';
 import HeaderImage from '../../../public/images/header.png';
+import { DesktopSearchForm } from '../search-form/desktop-search-form';
 
 export const Header = () => {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
@@ -28,7 +29,8 @@ export const Header = () => {
             />
           </FlexBoxRow>
         </FlexBoxRow>
-        <SearchForm />
+        <DesktopSearchForm />
+        {/* <MobileSearchForm /> */}
       </FlexBoxColumn>
     </header>
   );

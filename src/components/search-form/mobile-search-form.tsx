@@ -17,7 +17,7 @@ const formSchema = z.object({
 
 export type Form = z.infer<typeof formSchema>;
 
-export const SearchForm = () => {
+export const MobileSearchForm = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [setExtraFilters, setSearchKeyword, clearSearchFilters] = useJobsStore((state) => [
     state.setExtraFilters,
@@ -35,7 +35,6 @@ export const SearchForm = () => {
     register,
     reset,
     formState: { isSubmitted },
-    watch,
   } = methods;
 
   // console.log('location: ', watch('location'));

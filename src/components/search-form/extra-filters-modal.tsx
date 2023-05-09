@@ -5,7 +5,7 @@ import { Button } from '../ui/button';
 import { FlexBoxColumn } from '../ui/flexbox-column';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
 import { LocationAutocomplete } from './location-autocomplete';
-import { Form } from '.';
+import { Form } from './mobile-search-form';
 
 interface ExtraFiltersModalProps {
   isOpen: boolean;

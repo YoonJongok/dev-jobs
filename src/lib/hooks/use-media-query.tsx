@@ -1,6 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 
-export const UseMediaQuery = (width: string) => {
+export const breakPoints = {
+  mobile: '375',
+  tablet: '768',
+  desktop: '1280',
+};
+
+export const useMediaQuery = (width: string) => {
   const [targetReached, setTargetReached] = useState(false);
 
   const updateTarget = useCallback((e: MediaQueryListEvent) => {
