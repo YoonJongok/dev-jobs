@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
-type BreakPoints = Record<'mobile' | 'tablet' | 'desktop', string>;
+type Size = 'mobile' | 'tablet' | 'desktop';
+type BreakPoints = Record<Size, string>;
 
 export const breakPoints: BreakPoints = {
   mobile: '375',
@@ -8,7 +9,7 @@ export const breakPoints: BreakPoints = {
   desktop: '1280',
 };
 
-export const useMediaQuery = (width: string) => {
+export const useMediaQuery = (size: Size) => {
   const [targetReached, setTargetReached] = useState(false);
 
   const updateTarget = useCallback((e: MediaQueryListEvent) => {
@@ -20,7 +21,7 @@ export const useMediaQuery = (width: string) => {
   }, []);
 
   useEffect(() => {
-    const media = window.matchMedia(`(min-width: ${width}px)`);
+    const media = window.matchMedia(`(min-width: ${breakPoints[size]}px)`);
     media.addEventListener('change', updateTarget);
 
     // Check on mount (callback is not called until a change occurs)
@@ -29,7 +30,7 @@ export const useMediaQuery = (width: string) => {
     }
 
     return () => media.removeEventListener('change', updateTarget);
-  }, [updateTarget, width]);
+  }, [size, updateTarget]);
 
   return targetReached;
 };
