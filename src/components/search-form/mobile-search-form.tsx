@@ -4,7 +4,6 @@ import { Icons } from '../icons';
 import { FlexBoxRow } from '../ui/flexbox-row';
 import { ExtraFiltersModal } from './extra-filters-modal';
 import { FormProvider, SubmitHandler, UseFormReturn } from 'react-hook-form';
-import z from 'zod';
 import { useJobsStore } from '@/store/jobs';
 import { FormType } from '.';
 
