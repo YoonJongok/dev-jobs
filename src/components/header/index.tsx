@@ -9,7 +9,7 @@ import HeaderImage from '../../../public/images/header.png';
 import { SearchForm } from '../search-form';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { PostDetailHeader } from '../job-detail/job-detail-header';
+import { JobDetailHeader } from '../job-detail/job-detail-header';
 
 export const Header = () => {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
@@ -37,7 +37,7 @@ export const Header = () => {
           </FlexBoxRow>
         </FlexBoxRow>
         {homePath && <SearchForm />}
-        {!homePath && jobDetailPath && <PostDetailHeader jobId={jobDetailPath} />}
+        {!homePath && jobDetailPath && <JobDetailHeader jobId={jobDetailPath} />}
       </FlexBoxColumn>
     </header>
   );

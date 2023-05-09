@@ -1,23 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FlexBoxColumn } from '../ui/flexbox-column';
 import Image from 'next/image';
-import { FlexBoxRow } from '../ui/flexbox-row';
-import { Icons } from '../icons';
 import { useJobsById } from '@/lib/hooks/use-job-by-id';
 import { Button } from '../ui/button';
 import { Skeleton } from '../ui/skeleton';
+import { useJobDetailStore } from '@/store/job-detail';
 
 interface Props {
   jobId: string;
 }
 
-export const PostDetailHeader = ({ jobId }: Props) => {
-  const { data: job, isLoading } = useJobsById(jobId.split('/')[1]);
+export const JobDetailHeader = ({ jobId }: Props) => {
+  const { data: job, isLoading, isSuccess } = useJobsById(jobId.split('/')[1]);
+  const [setJobDetail] = useJobDetailStore((state) => [state.setJobDetail]);
 
-  console.log({ job, isLoading });
+  useEffect(() => {
+    if (isSuccess && job) {
+      setJobDetail(job);
+    }
+  }, [isSuccess, job, setJobDetail]);
 
   if (isLoading) {
-    return <PostDetailHeaderSkeleton />;
+    return <JobDetailHeaderSkeleton />;
   }
 
   return (
@@ -43,7 +47,7 @@ export const PostDetailHeader = ({ jobId }: Props) => {
   );
 };
 
-const PostDetailHeaderSkeleton = () => {
+const JobDetailHeaderSkeleton = () => {
   return (
     <FlexBoxColumn
       fullWidth

@@ -37,10 +37,10 @@ export const Icons = {
   ),
   disc: ({ ...props }: React.SVGProps<SVGSVGElement>) => (
     <svg
-      width='4'
-      height='4'
+      width='4px'
+      height='4px'
       viewBox='0 0 4 4'
-      fill='none'
+      fill='currentColor'
       xmlns='http://www.w3.org/2000/svg'
       {...props}
     >
