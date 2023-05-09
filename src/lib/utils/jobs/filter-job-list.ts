@@ -8,7 +8,7 @@ export const filterJobList = (
 ) =>
   filterJobListByKeyword(
     filterJobListByLocation(
-      filterJobListByContractType(jobs, extraFilters?.contractType),
+      filterJobListByContractType(jobs, extraFilters?.isFullTime),
       extraFilters?.location
     ),
     searchKeyword
@@ -38,11 +38,11 @@ export const filterJobListByLocation = (jobs?: Job[], location?: Location) => {
   return foundJobs;
 };
 
-export const filterJobListByContractType = (jobs?: Job[], contractType?: string) => {
+export const filterJobListByContractType = (jobs?: Job[], isFullTime?: boolean) => {
   if (!jobs) return [];
-  if (!contractType) return jobs;
+  if (!isFullTime) return jobs;
 
-  const foundJobs = jobs.filter((job) => job.contract === contractType);
+  const foundJobs = jobs.filter((job) => job.contract === 'Full Time');
 
   if (foundJobs.length === 0) return [];
 

@@ -3,14 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { Icons } from '../icons';
 import { FlexBoxRow } from '../ui/flexbox-row';
 import { ExtraFiltersModal } from './extra-filters-modal';
-import { Controller, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
 import { useJobsStore } from '@/store/jobs';
 import { locationSchema } from '@/store/jobs/jobs.types';
 
 const formSchema = z.object({
-  jobTitle: z.string().min(1, { message: 'Please enter a job title' }).optional(),
+  jobTitle: z.string().min(1, { message: 'Please enter a job title' }),
   location: locationSchema.optional(),
   isFullTime: z.boolean().default(false),
 });
@@ -27,20 +27,18 @@ export const SearchForm = () => {
 
   const methods = useForm<Form>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      jobTitle: '',
-      location: 'Default',
-      isFullTime: false,
-    },
     mode: 'onSubmit',
   });
 
   const {
-    control,
     handleSubmit,
+    register,
     reset,
     formState: { isSubmitted },
+    watch,
   } = methods;
+
+  // console.log('location: ', watch('location'));
 
   function openModal() {
     setIsOpen(true);
@@ -53,11 +51,16 @@ export const SearchForm = () => {
   const onSubmit: SubmitHandler<Form> = ({ jobTitle, isFullTime, location }) => {
     console.log({ jobTitle, isFullTime, location });
     clearSearchFilters();
-    setExtraFilters({ location, contractType: isFullTime ? 'Full Time' : 'Part Time' });
+
     if (isOpen) {
+      setExtraFilters({ isFullTime, location });
+      // setExtraFilters({ location, isFullTime });
       closeModal();
+    } else {
+      setSearchKeyword(jobTitle);
     }
   };
+
   console.log(isSubmitted);
 
   useEffect(() => {
@@ -67,22 +70,12 @@ export const SearchForm = () => {
   }, [isSubmitted, reset]);
 
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)} className='relative w-full'>
-        <Controller
-          name='jobTitle'
-          control={control}
-          render={({ field }) => (
-            <input
-              {...field}
-              onChange={(e) => {
-                field.onChange(e);
-                setSearchKeyword(e.target.value);
-              }}
-              placeholder='Filter by title...'
-              className='w-full  py-7 px-6 rounded-xl text-base  text-black  placeholder-slate-400 focus:outline-none'
-            />
-          )}
+    <form onSubmit={handleSubmit(onSubmit)} className='relative w-full'>
+      <FormProvider {...methods}>
+        <input
+          {...register('jobTitle')}
+          placeholder='Filter by title...'
+          className='w-full  py-7 px-6 rounded-xl text-base  text-black  placeholder-slate-400 focus:outline-none'
         />
 
         <FlexBoxRow className='items-center gap-6 absolute top-1/2 transform -translate-y-1/2 right-[16px]'>
@@ -97,8 +90,8 @@ export const SearchForm = () => {
           </button>
         </FlexBoxRow>
         <ExtraFiltersModal isOpen={isOpen} closeModal={closeModal} onSubmit={onSubmit} />
-      </form>
-    </FormProvider>
+      </FormProvider>
+    </form>
   );
 };
 

@@ -17,6 +17,8 @@ export const ListJobs = () => {
     state.extraFilters,
   ]);
 
+  console.log({ extraFilters });
+
   const foundJobs = filterJobList(jobs, searchKeyword, extraFilters);
   const projectExist = isSuccess && foundJobs.length > 0;
 

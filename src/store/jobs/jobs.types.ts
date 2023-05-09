@@ -3,7 +3,7 @@ import { z } from 'zod';
 export const contractSchema = z.enum(['Full Time', 'Part Time']);
 
 export const locationSchema = z.enum([
-  'Default',
+  'None',
   'United Kingdom',
   'United States',
   'Russia',

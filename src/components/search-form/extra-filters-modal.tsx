@@ -1,10 +1,11 @@
+'use client';
 import React, { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { Button } from '../ui/button';
 import { FlexBoxColumn } from '../ui/flexbox-column';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
-import { Form } from '.';
 import { LocationAutocomplete } from './location-autocomplete';
+import { Form } from '.';
 
 interface ExtraFiltersModalProps {
   isOpen: boolean;
@@ -13,7 +14,7 @@ interface ExtraFiltersModalProps {
 }
 
 export const ExtraFiltersModal = ({ isOpen, closeModal, onSubmit }: ExtraFiltersModalProps) => {
-  const { register, setValue, handleSubmit, reset } = useFormContext<Form>();
+  const { register, setValue, handleSubmit, reset, watch } = useFormContext<Form>();
   const [checked, setChecked] = useState(false);
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,10 +24,13 @@ export const ExtraFiltersModal = ({ isOpen, closeModal, onSubmit }: ExtraFilters
 
   useEffect(() => {
     if (!isOpen) {
-      reset({ location: 'Default', isFullTime: false });
+      reset({ isFullTime: false });
       setChecked(false);
     }
   }, [isOpen, reset, setChecked]);
+
+  console.log('isFullTIme: ', watch('isFullTime'));
+  // console.log('Location: ', watch('location'));
 
   return (
     <Transition appear show={isOpen} as={Fragment}>

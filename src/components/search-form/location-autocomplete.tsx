@@ -8,16 +8,17 @@ import { Form } from '.';
 import { filterLocation } from '@/lib/utils/jobs/filter-location';
 
 export const LocationAutocomplete = () => {
-  const { register, setValue } = useFormContext<Form>();
+  const { register } = useFormContext<Form>();
   const [query, setQuery] = useState('');
-  const [selected, setSelected] = useState<Location>('Default');
+  const [selected, setSelected] = useState<Location>('None');
 
   const filteredLocation = filterLocation(query);
 
   const handleInputChange = (value: Location) => {
     setSelected(value);
-    setValue('location', value);
   };
+
+  const noMatchQuery = filteredLocation.length === 0 && query !== '';
 
   return (
     <Combobox value={selected} onChange={handleInputChange}>
@@ -30,7 +31,7 @@ export const LocationAutocomplete = () => {
             {...register('location')}
             placeholder='Filter by location...'
             displayValue={(location) => {
-              if (location === 'Default') return '';
+              if (location === 'None') return '';
               return location as Location;
             }}
             onChange={(event) => setQuery(event.target.value)}
@@ -45,7 +46,7 @@ export const LocationAutocomplete = () => {
           afterLeave={() => setQuery('')}
         >
           <Combobox.Options className='absolute mt-1 max-h-[128px] w-full overflow-y-scroll rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm z-30'>
-            {filteredLocation.length === 0 && query !== '' ? (
+            {noMatchQuery ? (
               <div className='relative cursor-default select-none py-2 px-4 text-gray-700'>
                 Nothing found.
               </div>
