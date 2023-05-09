@@ -1,8 +1,8 @@
-import './globals.css';
-import QueryClientProvider from '@/lib/context/query-client-provider';
 import { cn } from '@/lib/utils/cn';
 import { Kumbh_Sans } from 'next/font/google';
 import { Header } from '@/components/header';
+import './globals.css';
+import QueryClientProvider from '@/lib/context/query-client-provider';
 
 const kumbhSans = Kumbh_Sans({ subsets: ['latin'], variable: '--font-sans' });
 

@@ -1,4 +1,4 @@
-import { ListJobs } from '@/components/list-jobs';
+import { ListJobs } from '@/components/home/list-jobs';
 import { FlexBoxColumn } from '@/components/ui/flexbox-column';
 
 export default function Home() {

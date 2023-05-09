@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const contractSchema = z.enum(['Full Time', 'Part Time']);
+export const contractSchema = z.enum(['Full Time', 'Part Time', 'Freelance']);
 
 export const locationSchema = z.enum([
   'All',

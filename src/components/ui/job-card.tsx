@@ -5,16 +5,20 @@ import { FlexBoxColumn } from './flexbox-column';
 import { FlexBoxRow } from './flexbox-row';
 import { Skeleton } from './skeleton';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
-interface JobCardProps {
+interface Props {
   job: Job;
 }
 
-export const JobCard = ({ job }: JobCardProps) => {
+export const JobCard = ({ job }: Props) => {
+  const router = useRouter();
+
   return (
     <FlexBoxColumn
       fullWidth
       className='relative pt-10 pl-8 pb-8 pr-2 bg-white rounded-md capitalize cursor-pointer'
+      onClick={() => router.push(`/${job.id}`)}
     >
       <div
         className='absolute -top-6 w-[50px] h-[50px] flex items-center justify-center rounded-[15px] bg-contain bg-no-repeat bg-center'

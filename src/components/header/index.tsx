@@ -9,10 +9,13 @@ import HeaderImage from '../../../public/images/header.png';
 import { SearchForm } from '../search-form';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { PostDetailHeader } from '../job-detail/job-detail-header';
 
 export const Header = () => {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const homePath = usePathname() === '/';
+  const jobDetailPath = usePathname();
+  console.log({ jobDetailPath });
 
   return (
     <header className='relative w-full'>
@@ -33,7 +36,8 @@ export const Header = () => {
             />
           </FlexBoxRow>
         </FlexBoxRow>
-        <SearchForm />
+        {homePath && <SearchForm />}
+        {!homePath && jobDetailPath && <PostDetailHeader jobId={jobDetailPath} />}
       </FlexBoxColumn>
     </header>
   );
