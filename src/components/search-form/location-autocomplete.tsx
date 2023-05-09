@@ -1,5 +1,5 @@
 import { Combobox, Transition } from '@headlessui/react';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { FlexBoxRow } from '../ui/flexbox-row';
 import { Icons } from '../icons';
 import { Location } from '@/store/jobs/jobs.types';
@@ -15,12 +15,11 @@ export const LocationAutocomplete = ({ register }: Props) => {
   const [selected, setSelected] = useState<Location>('All');
 
   const filteredLocation = filterLocation(query);
+  const noMatchQuery = filteredLocation.length === 0 && query !== '';
 
   const handleInputChange = (value: Location) => {
     setSelected(value);
   };
-
-  const noMatchQuery = filteredLocation.length === 0 && query !== '';
 
   return (
     <Combobox value={selected} onChange={handleInputChange}>

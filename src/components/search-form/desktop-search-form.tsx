@@ -1,38 +1,22 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Icons } from '../icons';
 import { FlexBoxRow } from '../ui/flexbox-row';
-import { ExtraFiltersModal } from './extra-filters-modal';
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import z from 'zod';
+import { SubmitHandler, UseFormReturn } from 'react-hook-form';
 import { useJobsStore } from '@/store/jobs';
-import { locationSchema } from '@/store/jobs/jobs.types';
 import { LocationAutocomplete } from './location-autocomplete';
+import { FormType } from '.';
 
-const formSchema = z.object({
-  jobTitle: z.string(),
-  location: locationSchema,
-  isFullTime: z.boolean(),
-});
+interface Props {
+  useFormMethods: UseFormReturn<FormType>;
+}
 
-export type FormType = z.infer<typeof formSchema>;
-
-export const DesktopSearchForm = () => {
+export const DesktopSearchForm = ({ useFormMethods }: Props) => {
   const [setSearchFilters] = useJobsStore((state) => [state.setSearchFilters]);
 
-  const { handleSubmit, register } = useForm<FormType>({
-    defaultValues: {
-      jobTitle: '',
-      location: 'All',
-      isFullTime: false,
-    },
-    resolver: zodResolver(formSchema),
-    mode: 'onSubmit',
-  });
+  const { handleSubmit, register } = useFormMethods;
 
   const onSubmit: SubmitHandler<FormType> = ({ jobTitle, location, isFullTime }) => {
-    console.log({ jobTitle, location, isFullTime });
     setSearchFilters({ jobTitle, location, isFullTime });
   };
 

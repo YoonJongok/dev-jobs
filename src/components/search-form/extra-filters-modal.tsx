@@ -1,36 +1,19 @@
-'use client';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { Button } from '../ui/button';
 import { FlexBoxColumn } from '../ui/flexbox-column';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
 import { LocationAutocomplete } from './location-autocomplete';
-import { Form } from './mobile-search-form';
+import { FormType } from '.';
 
 interface ExtraFiltersModalProps {
   isOpen: boolean;
   closeModal: () => void;
-  onSubmit: SubmitHandler<Form>;
+  onSubmit: SubmitHandler<FormType>;
 }
 
 export const ExtraFiltersModal = ({ isOpen, closeModal, onSubmit }: ExtraFiltersModalProps) => {
-  const { register, setValue, handleSubmit, reset, watch } = useFormContext<Form>();
-  const [checked, setChecked] = useState(false);
-
-  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(e.target.checked);
-    setValue('isFullTime', e.target.checked);
-  };
-
-  useEffect(() => {
-    if (!isOpen) {
-      reset({ isFullTime: false });
-      setChecked(false);
-    }
-  }, [isOpen, reset, setChecked]);
-
-  console.log('isFullTIme: ', watch('isFullTime'));
-  // console.log('Location: ', watch('location'));
+  const { register, handleSubmit } = useFormContext<FormType>();
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -73,8 +56,6 @@ export const ExtraFiltersModal = ({ isOpen, closeModal, onSubmit }: ExtraFilters
                       {...register('isFullTime')}
                       type='checkbox'
                       id='fulltime-checkbox'
-                      checked={checked}
-                      onChange={handleCheckboxChange}
                       className="cursor-pointer relative w-6 h-6 appearance-none rounded-[0.25rem] bg-grey-2 outline-none before:pointer-events-none before:absolute before:h-6 before:w-6 before:scale-0 before:rounded-full before:bg-transparent before:opacity-0  before:content-[''] checked:border-primary checked:bg-violet-4 checked:before:opacity-[0.16] checked:after:absolute checked:after:mt-[4px] checked:after:ml-[0.5rem] checked:after:block checked:after:h-[0.8125rem] checked:after:w-[0.375rem] checked:after:rotate-45 checked:after:border-[0.125rem] checked:after:border-l-0 checked:after:border-t-0 checked:after:border-solid checked:after:border-white"
                     />
                     Full time only
