@@ -1,17 +1,13 @@
-import { SearchExtraFiltersType } from '@/store/jobs';
+import { SearchFiltersType } from '@/store/jobs';
 import { Job, Location } from '@/store/jobs/jobs.types';
 
-export const filterJobList = (
-  jobs?: Job[],
-  searchKeyword?: string,
-  extraFilters?: SearchExtraFiltersType
-) =>
+export const filterJobList = (jobs?: Job[], searchFilters?: SearchFiltersType) =>
   filterJobListByKeyword(
     filterJobListByLocation(
-      filterJobListByContractType(jobs, extraFilters?.isFullTime),
-      extraFilters?.location
+      filterJobListByContractType(jobs, searchFilters?.isFullTime),
+      searchFilters?.location
     ),
-    searchKeyword
+    searchFilters?.jobTitle
   );
 
 export const filterJobListByKeyword = (jobs?: Job[], searchKeyword?: string) => {

@@ -61,7 +61,7 @@ export const ExtraFiltersModal = ({ isOpen, closeModal, onSubmit }: ExtraFilters
               <Dialog.Panel className='w-full min-w-[326px] transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all'>
                 <Dialog.Title as='h3' className='text-lg font-medium leading-6 text-gray-900'>
                   <FlexBoxColumn className='relative w-full'>
-                    <LocationAutocomplete />
+                    <LocationAutocomplete register={register('location')} />
                   </FlexBoxColumn>
                 </Dialog.Title>
                 <FlexBoxColumn className='items-start p-6 gap-6'>

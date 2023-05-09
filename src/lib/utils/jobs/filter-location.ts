@@ -1,6 +1,7 @@
 import { Location } from '@/store/jobs/jobs.types';
 
 export const locationArray: Location[] = [
+  'All',
   'United Kingdom',
   'United States',
   'Russia',

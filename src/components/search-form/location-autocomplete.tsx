@@ -1,16 +1,18 @@
 import { Combobox, Transition } from '@headlessui/react';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { FlexBoxRow } from '../ui/flexbox-row';
 import { Icons } from '../icons';
 import { Location } from '@/store/jobs/jobs.types';
-import { useFormContext } from 'react-hook-form';
-import { Form } from './mobile-search-form';
+import { UseFormRegisterReturn } from 'react-hook-form';
 import { filterLocation } from '@/lib/utils/jobs/filter-location';
 
-export const LocationAutocomplete = () => {
-  const { register } = useFormContext<Form>();
+interface Props {
+  register: UseFormRegisterReturn;
+}
+
+export const LocationAutocomplete = ({ register }: Props) => {
   const [query, setQuery] = useState('');
-  const [selected, setSelected] = useState<Location>('None');
+  const [selected, setSelected] = useState<Location>('All');
 
   const filteredLocation = filterLocation(query);
 
@@ -22,20 +24,19 @@ export const LocationAutocomplete = () => {
 
   return (
     <Combobox value={selected} onChange={handleInputChange}>
-      <div className='relative'>
-        <div className='relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm'>
+      <div className='relative tablet:w-full'>
+        <div className='relative w-full cursor-default overflow-hidden rounded-lg tablet:rounded-none bg-white text-left shadow-sm tablet:shadow-none focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm'>
           <FlexBoxRow className='items-center gap-6 absolute top-1/2 transform -translate-y-1/2 left-[24px]'>
             <Icons.location className='w-6 h-6 fill-violet-4' />
           </FlexBoxRow>
           <Combobox.Input
-            {...register('location')}
+            {...register}
             placeholder='Filter by location...'
             displayValue={(location) => {
-              if (location === 'None') return '';
               return location as Location;
             }}
             onChange={(event) => setQuery(event.target.value)}
-            className='w-full py-7 px-6 pl-14 bg-grey-100 dark:bg-darkmode-container text-base text-black  placeholder-slate-300 border border-b-2 focus:outline-none focus:ring-0'
+            className='w-full py-7 px-6 pl-14 bg-grey-100 dark:bg-darkmode-container text-base text-black  placeholder-slate-300 border border-b-2 tablet:border-none focus:outline-none focus:ring-0'
           />
         </div>
         <Transition

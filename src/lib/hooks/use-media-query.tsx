@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 
-export const breakPoints = {
+type BreakPoints = Record<'mobile' | 'tablet' | 'desktop', string>;
+
+export const breakPoints: BreakPoints = {
   mobile: '375',
   tablet: '768',
   desktop: '1280',
