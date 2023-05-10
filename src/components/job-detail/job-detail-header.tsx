@@ -5,6 +5,8 @@ import { useJobsById } from '@/lib/hooks/use-job-by-id';
 import { Button } from '../ui/button';
 import { Skeleton } from '../ui/skeleton';
 import { useJobDetailStore } from '@/store/job-detail';
+import { useMediaQuery } from '@/lib/hooks/use-media-query';
+import { FlexBoxRow } from '../ui/flexbox-row';
 
 interface Props {
   jobId: string;
@@ -14,15 +16,45 @@ export const JobDetailHeader = ({ jobId }: Props) => {
   const { data: job, isLoading, isSuccess } = useJobsById(jobId.split('/')[1]);
   const [setJobDetail] = useJobDetailStore((state) => [state.setJobDetail]);
 
+  const isTablet = useMediaQuery('tablet');
+
   useEffect(() => {
     if (isSuccess && job) {
       setJobDetail(job);
     }
   }, [isSuccess, job, setJobDetail]);
 
-  if (isLoading) {
-    return <JobDetailHeaderSkeleton />;
+  if (isTablet) {
+    return (
+      <div className='relative grid grid-cols-5 items-center  bg-white rounded-md capitalize'>
+        {job && (
+          <>
+            <div
+              className='col-span-1 w-full h-full bg-no-repeat bg-cover  bg-center flex justify-center items-center rounded-l-md'
+              style={{ backgroundColor: job.logoBackground }}
+            >
+              <Image priority src={job.logo} alt='header' width={0} height={0} className='w-1/3 ' />
+            </div>
+            <FlexBoxRow
+              intent={'flexBetweenCenter'}
+              fullWidth
+              className='col-start-2 col-end-6 p-10'
+            >
+              <FlexBoxColumn>
+                <h2 className='font-bold '>{job?.position}</h2>
+                <p className='text-base text-blue-2'>{job?.company}</p>
+              </FlexBoxColumn>
+              <Button intent={'secondary'}>Company Site</Button>
+            </FlexBoxRow>
+          </>
+        )}
+      </div>
+    );
   }
+
+  // if (isLoading) {
+  //   return <JobDetailHeaderSkeleton />;
+  // }
 
   return (
     <FlexBoxColumn
