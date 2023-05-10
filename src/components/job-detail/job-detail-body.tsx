@@ -16,7 +16,7 @@ export const JobDetailBody = () => {
     <>
       <FlexBoxColumn className='items-center py-6 px-6 tablet:px-12 desktop:px-[165px] gap-12'>
         {jobDetail && (
-          <FlexBoxColumn className='w-full bg-white px-6 py-10 gap-10'>
+          <FlexBoxColumn className='w-full bg-white  dark:bg-blue-3 px-6 py-10 gap-10'>
             {isTablet ? (
               <FlexBoxRow intent={'flexBetweenCenter'}>
                 <FlexBoxColumn fullWidth className='rounded-md capitalize'>
@@ -50,16 +50,22 @@ export const JobDetailBody = () => {
                 </Button>
               </>
             )}
-            <p className='text-base font-normal leading-[26px]'>{jobDetail.description}</p>
+            <p className='text-base font-normal leading-[26px] dark:text-blue-2'>
+              {jobDetail.description}
+            </p>
 
             <FlexBoxColumn className='gap-7'>
               <h3 className='font-bold'>Requirements</h3>
-              <p className='text-base font-normal leading-[26px]'>
+              <p className='text-base font-normal leading-[26px] dark:text-blue-2'>
                 {jobDetail.requirements.content}
               </p>
               <FlexBoxColumn className='gap-4'>
                 {jobDetail.requirements.items.map((item, index) => (
-                  <FlexBoxRow key={index} intent={'flexStartCenter'} className='gap-9'>
+                  <FlexBoxRow
+                    key={index}
+                    intent={'flexStartCenter'}
+                    className='gap-9 dark:text-blue-2'
+                  >
                     <Icons.disc className='w-2 fill-violet-4 self-start mt-[10px]' />
                     {item}
                   </FlexBoxRow>
@@ -68,10 +74,16 @@ export const JobDetailBody = () => {
             </FlexBoxColumn>
             <FlexBoxColumn className='gap-7'>
               <h3 className='font-bold capitalize'>What you will do</h3>
-              <p className='text-base font-normal leading-[26px]'>{jobDetail.role.content}</p>
+              <p className='text-base font-normal leading-[26px] dark:text-blue-2'>
+                {jobDetail.role.content}
+              </p>
               <FlexBoxColumn className='gap-4'>
                 {jobDetail.role.items.map((item, index) => (
-                  <FlexBoxRow key={index} intent={'flexStartCenter'} className='gap-9'>
+                  <FlexBoxRow
+                    key={index}
+                    intent={'flexStartCenter'}
+                    className='gap-9 dark:text-blue-2'
+                  >
                     <p className='text-violet-4 self-start'>{index + 1}</p>
                     {item}
                   </FlexBoxRow>
@@ -84,7 +96,7 @@ export const JobDetailBody = () => {
 
       <FlexBoxRow
         intent={isTablet ? 'flexBetweenCenter' : 'flexCenterCenter'}
-        className='mt-10 p-6 tablet:py-6 tablet:px-10 bg-white'
+        className='mt-10 p-6 tablet:py-6 tablet:px-10 bg-white dark:bg-blue-3'
       >
         {isTablet ? (
           <>

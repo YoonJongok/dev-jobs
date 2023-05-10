@@ -1,16 +1,20 @@
 import { cn } from '@/lib/utils/cn';
 import { Switch } from '@headlessui/react';
-import clsx from 'clsx';
 import React from 'react';
 import { FlexBoxRow } from '../ui/flexbox-row';
 import { Icons } from '../icons';
 import { useTheme } from 'next-themes';
+import { useLocalStorage } from '@/lib/hooks/use-local-storage';
 
 export const DarkModeSwitch = () => {
   const { systemTheme, theme, setTheme } = useTheme();
   const currentTheme = theme === 'system' ? systemTheme : theme;
 
-  const isDarkMode = currentTheme === 'dark';
+  const { getLocalStorage, setLocalStorage } = useLocalStorage<string>('job-');
+  currentTheme && setLocalStorage('theme', currentTheme);
+  const themeFromLocalStorage = getLocalStorage('theme');
+
+  const isDarkMode = themeFromLocalStorage === 'dark' ?? currentTheme === 'dark';
 
   const handleToggleSwitch = () => {
     if (theme === 'dark') {
@@ -26,7 +30,7 @@ export const DarkModeSwitch = () => {
       <Switch
         checked={isDarkMode}
         onChange={() => handleToggleSwitch()}
-        className={clsx(
+        className={cn(
           'cursur-pointer relative inline-flex px-[2px] items-center h-[24px] w-[48px] shrink-0 rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75 bg-white'
         )}
       >

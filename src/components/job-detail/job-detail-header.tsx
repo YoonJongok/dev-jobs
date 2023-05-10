@@ -26,7 +26,7 @@ export const JobDetailHeader = ({ jobId }: Props) => {
 
   if (isTablet) {
     return (
-      <div className='relative grid grid-cols-5 items-center  bg-white rounded-md capitalize'>
+      <div className='relative grid grid-cols-5 items-center  bg-white dark:bg-blue-3 rounded-md capitalize'>
         {job && (
           <>
             <div
@@ -38,7 +38,7 @@ export const JobDetailHeader = ({ jobId }: Props) => {
             <FlexBoxRow
               intent={'flexBetweenCenter'}
               fullWidth
-              className='col-start-2 col-end-6 p-10'
+              className='col-start-2 col-end-6 p-10 dark:bg-blue-3'
             >
               <FlexBoxColumn>
                 <h2 className='font-bold '>{job?.position}</h2>
@@ -55,7 +55,7 @@ export const JobDetailHeader = ({ jobId }: Props) => {
   return (
     <FlexBoxColumn
       fullWidth
-      className='relative items-center pt-10 pb-8 bg-white rounded-md capitalize'
+      className='relative items-center pt-10 pb-8 bg-white dark:bg-blue-3  rounded-md capitalize'
     >
       {job && (
         <>
