@@ -6,12 +6,15 @@ import { SubmitHandler, UseFormReturn } from 'react-hook-form';
 import { useJobsStore } from '@/store/jobs';
 import { LocationAutocomplete } from './location-autocomplete';
 import { FormType } from '.';
+import { useMediaQuery } from '@/lib/hooks/use-media-query';
 
 interface Props {
   useFormMethods: UseFormReturn<FormType>;
 }
 
 export const DesktopSearchForm = ({ useFormMethods }: Props) => {
+  const isDesktop = useMediaQuery('desktop');
+
   const [setSearchFilters] = useJobsStore((state) => [state.setSearchFilters]);
 
   const { handleSubmit, register } = useFormMethods;
@@ -48,7 +51,7 @@ export const DesktopSearchForm = ({ useFormMethods }: Props) => {
             id='fulltime-only-checkbox'
             className="cursor-pointer relative w-6 h-6 appearance-none rounded-[0.25rem] bg-grey-2 outline-none before:pointer-events-none before:absolute before:h-6 before:w-6 before:scale-0 before:rounded-full before:bg-transparent before:opacity-0  before:content-[''] checked:border-primary checked:bg-violet-4 checked:before:opacity-[0.16] checked:after:absolute checked:after:mt-[4px] checked:after:ml-[0.5rem] checked:after:block checked:after:h-[0.8125rem] checked:after:w-[0.375rem] checked:after:rotate-45 checked:after:border-[0.125rem] checked:after:border-l-0 checked:after:border-t-0 checked:after:border-solid checked:after:border-white"
           />
-          Full time only
+          {isDesktop ? 'Full Time Only' : 'Full Time'}
         </label>
         <button
           type='submit'

@@ -37,7 +37,7 @@ export const ListJobs = () => {
   }
 
   return (
-    <FlexBoxColumn className='items-center py-14 px-6 gap-12'>
+    <FlexBoxColumn className='items-center py-14 px-6 tablet:px-10 desktop:px-[165px] gap-12'>
       {!isLoading && !projectExist && (
         <FlexBoxRow>
           <h3 className='font-bold text-blue-2'>No project exist</h3>

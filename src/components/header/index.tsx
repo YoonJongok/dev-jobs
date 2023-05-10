@@ -6,23 +6,32 @@ import { Icons } from '../icons';
 import { DarkModeSwitch } from './dark-mode-switch';
 import Image from 'next/image';
 import HeaderImage from '../../../public/images/header.png';
+import MobileHeaderImage from '../../../public/images/mobile-header.png';
 import { SearchForm } from '../search-form';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { JobDetailHeader } from '../job-detail/job-detail-header';
+import { useMediaQuery } from '@/lib/hooks/use-media-query';
 
 export const Header = () => {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const isTablet = useMediaQuery('tablet');
+
   const homePath = usePathname() === '/';
   const jobDetailPath = usePathname();
-  console.log({ jobDetailPath });
 
   return (
     <header className='relative w-full'>
       <FlexBoxRow className='absolute w-full h-[136px]'>
-        <Image priority src={HeaderImage} alt='header' fill className='w-full h-full -z-10' />
+        <Image
+          priority
+          src={isTablet ? HeaderImage : MobileHeaderImage}
+          alt='header'
+          fill
+          className='w-full h-full -z-10'
+        />
       </FlexBoxRow>
-      <FlexBoxColumn className='pt-[32px] px-6 gap-[32px]'>
+      <FlexBoxColumn className='pt-[32px] px-6 tablet:px-10 desktop:px-[165px] gap-[32px]'>
         <FlexBoxRow intent={'flexBetweenCenter'} className='bg-transparent'>
           <Link className='cursor-pointer z-10' href={'/'}>
             <Icons.logo />

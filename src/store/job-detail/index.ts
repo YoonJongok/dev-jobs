@@ -6,7 +6,7 @@ interface JobDetailStore {
   setJobDetail: (job: Job) => void;
 }
 
-export const useJobDetailStore = create<JobDetailStore>((set, get) => ({
+export const useJobDetailStore = create<JobDetailStore>((set) => ({
   jobDetail: undefined,
   setJobDetail: (job: Job) => set({ jobDetail: job }),
 }));
