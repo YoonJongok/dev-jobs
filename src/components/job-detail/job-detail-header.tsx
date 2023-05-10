@@ -3,7 +3,6 @@ import { FlexBoxColumn } from '../ui/flexbox-column';
 import Image from 'next/image';
 import { useJobsById } from '@/lib/hooks/use-job-by-id';
 import { Button } from '../ui/button';
-import { Skeleton } from '../ui/skeleton';
 import { useJobDetailStore } from '@/store/job-detail';
 import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { FlexBoxRow } from '../ui/flexbox-row';
