@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const JobDetailHeader = ({ jobId }: Props) => {
-  const { data: job, isLoading, isSuccess } = useJobsById(jobId.split('/')[1]);
+  const { data: job, isSuccess } = useJobsById(jobId.split('/')[1]);
   const [setJobDetail] = useJobDetailStore((state) => [state.setJobDetail]);
 
   const isTablet = useMediaQuery('tablet');
@@ -51,10 +51,6 @@ export const JobDetailHeader = ({ jobId }: Props) => {
       </div>
     );
   }
-
-  // if (isLoading) {
-  //   return <JobDetailHeaderSkeleton />;
-  // }
 
   return (
     <FlexBoxColumn

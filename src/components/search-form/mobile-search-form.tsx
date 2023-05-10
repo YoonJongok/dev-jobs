@@ -46,7 +46,7 @@ export const MobileSearchForm = ({ useFormMethods }: Props) => {
         <input
           {...register('jobTitle')}
           placeholder='Filter by title...'
-          className='w-full  py-7 px-6 rounded-xl text-base  text-black  placeholder-slate-400 focus:outline-none'
+          className='w-full  py-7 px-6 rounded-xl text-base dark:bg-blue-3  text-black dark:text-white  placeholder-slate-400 dark:placeholder-slate-300 focus:outline-none'
         />
 
         <FlexBoxRow className='items-center gap-6 absolute top-1/2 transform -translate-y-1/2 right-[16px]'>
@@ -55,7 +55,7 @@ export const MobileSearchForm = ({ useFormMethods }: Props) => {
             onClick={() => setIsOpen(true)}
             className='cursor-pointer'
           >
-            <Icons.filter className='w-6 h-6 fill-blue-2' />
+            <Icons.filter className='w-6 h-6 fill-blue-2 dark:fill-white' />
           </FlexBoxRow>
           <button
             type='submit'

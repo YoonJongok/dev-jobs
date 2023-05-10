@@ -27,10 +27,10 @@ export const ExtraFiltersModal = ({ isOpen, closeModal, onSubmit }: ExtraFilters
           leaveFrom='opacity-100'
           leaveTo='opacity-0'
         >
-          <div className='fixed inset-0 bg-black bg-opacity-60' />
+          <div className='fixed inset-0 bg-black  bg-opacity-60 ' />
         </Transition.Child>
 
-        <div className='fixed inset-0 overflow-y-auto'>
+        <div className='fixed inset-0 overflow-y-auto '>
           <div className='flex min-h-full items-center justify-center p-6 text-center'>
             <Transition.Child
               as={Fragment}
@@ -42,12 +42,12 @@ export const ExtraFiltersModal = ({ isOpen, closeModal, onSubmit }: ExtraFilters
               leaveTo='opacity-0 scale-95'
             >
               <Dialog.Panel className='w-full min-w-[326px] transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all'>
-                <Dialog.Title as='h3' className='text-lg font-medium leading-6 text-gray-900'>
-                  <FlexBoxColumn className='relative w-full'>
+                <Dialog.Title as='h3' className='text-lg font-medium leading-6 text-gray-900  '>
+                  <FlexBoxColumn className='relative w-full  dark:bg-blue-3 '>
                     <LocationAutocomplete register={register('location')} />
                   </FlexBoxColumn>
                 </Dialog.Title>
-                <FlexBoxColumn className='items-start p-6 gap-6'>
+                <FlexBoxColumn className='items-start p-6 gap-6 dark:bg-blue-3'>
                   <label
                     htmlFor='fulltime-checkbox'
                     className='flex justify-start items-center gap-4 capitalize cursor-pointer font-bold text-base'
@@ -56,7 +56,7 @@ export const ExtraFiltersModal = ({ isOpen, closeModal, onSubmit }: ExtraFilters
                       {...register('isFullTime')}
                       type='checkbox'
                       id='fulltime-checkbox'
-                      className="cursor-pointer relative w-6 h-6 appearance-none rounded-[0.25rem] bg-grey-2 outline-none before:pointer-events-none before:absolute before:h-6 before:w-6 before:scale-0 before:rounded-full before:bg-transparent before:opacity-0  before:content-[''] checked:border-primary checked:bg-violet-4 checked:before:opacity-[0.16] checked:after:absolute checked:after:mt-[4px] checked:after:ml-[0.5rem] checked:after:block checked:after:h-[0.8125rem] checked:after:w-[0.375rem] checked:after:rotate-45 checked:after:border-[0.125rem] checked:after:border-l-0 checked:after:border-t-0 checked:after:border-solid checked:after:border-white"
+                      className="cursor-pointer relative w-6 h-6 appearance-none rounded-[0.25rem] bg-grey-2 dark:bg-grey-4 outline-none before:pointer-events-none before:absolute before:h-6 before:w-6 before:scale-0 before:rounded-full before:bg-transparent before:opacity-0  before:content-[''] checked:border-primary checked:bg-violet-4 checked:before:opacity-[0.16] checked:after:absolute checked:after:mt-[4px] checked:after:ml-[0.5rem] checked:after:block checked:after:h-[0.8125rem] checked:after:w-[0.375rem] checked:after:rotate-45 checked:after:border-[0.125rem] checked:after:border-l-0 checked:after:border-t-0 checked:after:border-solid checked:after:border-white"
                     />
                     Full time only
                   </label>

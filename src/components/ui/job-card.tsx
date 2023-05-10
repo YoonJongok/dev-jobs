@@ -17,7 +17,7 @@ export const JobCard = ({ job }: Props) => {
   return (
     <FlexBoxColumn
       fullWidth
-      className='relative pt-10 pl-8 pb-8 pr-2 bg-white rounded-md capitalize cursor-pointer'
+      className='relative pt-10 pl-8 pb-8 pr-2 bg-white dark:bg-blue-3 rounded-md capitalize cursor-pointer'
       onClick={() => router.push(`/${job.id}`)}
     >
       <div
