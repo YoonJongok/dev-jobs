@@ -37,14 +37,14 @@ export const ListJobs = () => {
   }
 
   return (
-    <FlexBoxColumn className='items-center py-14 px-6 tablet:px-10 desktop:px-[165px] gap-12'>
+    <div className='flex flex-col items-center py-14 px-6  gap-10 tablet:grid tablet:grid-cols-2 tablet:gap-x-[10px] tablet:gap-y-10 tablet:px-10 desktop:grid-cols-3 desktop:gap-x-[30px] desktop:gap-y-[60px]  desktop:px-[165px]'>
       {!isLoading && !projectExist && (
         <FlexBoxRow>
           <h3 className='font-bold text-blue-2'>No project exist</h3>
         </FlexBoxRow>
       )}
       {projectExist && foundJobs.map((job) => <JobCard key={crypto.randomUUID()} job={job} />)}
-    </FlexBoxColumn>
+    </div>
   );
 };
 
