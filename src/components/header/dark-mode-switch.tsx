@@ -10,7 +10,7 @@ export const DarkModeSwitch = () => {
   const { systemTheme, theme, setTheme } = useTheme();
   const currentTheme = theme === 'system' ? systemTheme : theme;
 
-  const { getLocalStorage, setLocalStorage } = useLocalStorage<string>('job-');
+  const { getLocalStorage, setLocalStorage } = useLocalStorage<string>('dev-');
   currentTheme && setLocalStorage('theme', currentTheme);
   const themeFromLocalStorage = getLocalStorage('theme');
 

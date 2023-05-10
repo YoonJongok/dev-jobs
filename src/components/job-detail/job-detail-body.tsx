@@ -14,9 +14,9 @@ export const JobDetailBody = () => {
 
   return (
     <>
-      <FlexBoxColumn className='items-center py-6 px-6 tablet:px-12 desktop:px-[165px] gap-12'>
+      <FlexBoxColumn className='items-center py-6 px-6 tablet:px-12 mx-auto desktop:px-[165px] gap-12'>
         {jobDetail && (
-          <FlexBoxColumn className='w-full bg-white  dark:bg-blue-3 px-6 py-10 gap-10'>
+          <FlexBoxColumn className='w-full bg-white  dark:bg-blue-3 px-6 py-10 gap-10  desktop:max-w-[1200px]'>
             {isTablet ? (
               <FlexBoxRow intent={'flexBetweenCenter'}>
                 <FlexBoxColumn fullWidth className='rounded-md capitalize'>

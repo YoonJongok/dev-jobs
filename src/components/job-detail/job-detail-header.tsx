@@ -7,6 +7,7 @@ import { Skeleton } from '../ui/skeleton';
 import { useJobDetailStore } from '@/store/job-detail';
 import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { FlexBoxRow } from '../ui/flexbox-row';
+import { useLocalStorage } from '@/lib/hooks/use-local-storage';
 
 interface Props {
   jobId: string;
@@ -26,7 +27,7 @@ export const JobDetailHeader = ({ jobId }: Props) => {
 
   if (isTablet) {
     return (
-      <div className='relative grid grid-cols-5 items-center  bg-white dark:bg-blue-3 rounded-md capitalize'>
+      <div className='w-full desktop:max-w-[1200px] mx-auto relative grid grid-cols-5 items-center  bg-white dark:bg-blue-3 rounded-md capitalize'>
         {job && (
           <>
             <div
