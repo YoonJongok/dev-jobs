@@ -4,19 +4,28 @@ import clsx from 'clsx';
 import React from 'react';
 import { FlexBoxRow } from '../ui/flexbox-row';
 import { Icons } from '../icons';
+import { useTheme } from 'next-themes';
 
-interface DarkModeSwitchProps {
-  isDarkMode: boolean;
-  toggleTheme: () => void;
-}
+export const DarkModeSwitch = () => {
+  const { systemTheme, theme, setTheme } = useTheme();
+  const currentTheme = theme === 'system' ? systemTheme : theme;
 
-export const DarkModeSwitch: React.FC<DarkModeSwitchProps> = ({ isDarkMode, toggleTheme }) => {
+  const isDarkMode = currentTheme === 'dark';
+
+  const handleToggleSwitch = () => {
+    if (theme === 'dark') {
+      setTheme('light');
+    } else {
+      setTheme('dark');
+    }
+  };
+
   return (
     <FlexBoxRow intent={'flexEndCenter'} className='gap-4'>
-      <Icons.moon className='fill-white' />
+      <Icons.sun className='fill-white' />
       <Switch
         checked={isDarkMode}
-        onChange={toggleTheme}
+        onChange={() => handleToggleSwitch()}
         className={clsx(
           'cursur-pointer relative inline-flex px-[2px] items-center h-[24px] w-[48px] shrink-0 rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75 bg-white'
         )}
@@ -31,7 +40,7 @@ export const DarkModeSwitch: React.FC<DarkModeSwitchProps> = ({ isDarkMode, togg
           )}
         />
       </Switch>
-      <Icons.sun className='fill-white' />
+      <Icons.moon className='fill-white' />
     </FlexBoxRow>
   );
 };

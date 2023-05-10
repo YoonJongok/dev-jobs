@@ -14,7 +14,6 @@ import { JobDetailHeader } from '../job-detail/job-detail-header';
 import { useMediaQuery } from '@/lib/hooks/use-media-query';
 
 export const Header = () => {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const isTablet = useMediaQuery('tablet');
 
   const homePath = usePathname() === '/';
@@ -37,12 +36,7 @@ export const Header = () => {
             <Icons.logo />
           </Link>
           <FlexBoxRow intent={'flexEndCenter'} className='gap-4'>
-            <DarkModeSwitch
-              isDarkMode={isDarkMode}
-              toggleTheme={() => {
-                setIsDarkMode((prev) => !prev);
-              }}
-            />
+            <DarkModeSwitch />
           </FlexBoxRow>
         </FlexBoxRow>
         {homePath && <SearchForm />}
