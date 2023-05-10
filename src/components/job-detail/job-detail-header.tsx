@@ -7,7 +7,6 @@ import { Skeleton } from '../ui/skeleton';
 import { useJobDetailStore } from '@/store/job-detail';
 import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { FlexBoxRow } from '../ui/flexbox-row';
-import { useLocalStorage } from '@/lib/hooks/use-local-storage';
 
 interface Props {
   jobId: string;
@@ -72,21 +71,6 @@ export const JobDetailHeader = ({ jobId }: Props) => {
           <Button intent={'secondary'}>Company Site</Button>
         </>
       )}
-    </FlexBoxColumn>
-  );
-};
-
-const JobDetailHeaderSkeleton = () => {
-  return (
-    <FlexBoxColumn
-      fullWidth
-      className='relative pt-11 pb-9 items-center bg-white rounded-md capitalize cursor-pointer'
-    >
-      <Skeleton className='absolute -top-6 left-1/2 transform -translate-x-1/2 w-[50px] h-[50px] rounded-[15px] bg-grey-2' />
-
-      <Skeleton className='w-[250px] h-[20px] font-bold mt-3 mb-4  bg-grey-2' />
-      <Skeleton className='w-[120px] h-[20px] bg-grey-2 mb-7' />
-      <Button intent={'secondary'} className='w-[154px] h-[56px]' />
     </FlexBoxColumn>
   );
 };
