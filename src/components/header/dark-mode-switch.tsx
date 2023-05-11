@@ -1,7 +1,7 @@
 'use client';
 import { cn } from '@/lib/utils/cn';
 import { Switch } from '@headlessui/react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FlexBoxRow } from '../ui/flexbox-row';
 import { Icons } from '../icons';
 import { useTheme } from 'next-themes';
@@ -11,11 +11,11 @@ export const DarkModeSwitch = () => {
   const { systemTheme, theme, setTheme } = useTheme();
   const currentTheme = theme === 'system' ? systemTheme : theme;
 
-  const { getLocalStorage, setLocalStorage } = useLocalStorage<string>();
-  currentTheme && setLocalStorage(localStorageKey.theme, currentTheme);
-  const themeFromLocalStorage = getLocalStorage(localStorageKey.theme);
+  const { localStorageValue, setLocalStorageValue } = useLocalStorage<string>(
+    localStorageKey.theme
+  );
 
-  const isDarkMode = themeFromLocalStorage === 'dark' ?? currentTheme === 'dark';
+  const isDarkMode = localStorageValue === 'dark' ?? currentTheme === 'dark';
 
   const handleToggleSwitch = () => {
     if (theme === 'dark') {
@@ -24,6 +24,12 @@ export const DarkModeSwitch = () => {
       setTheme('dark');
     }
   };
+
+  useEffect(() => {
+    if (currentTheme) {
+      setLocalStorageValue(currentTheme);
+    }
+  }, [currentTheme, setLocalStorageValue]);
 
   return (
     <FlexBoxRow intent={'flexEndCenter'} className='gap-4'>
