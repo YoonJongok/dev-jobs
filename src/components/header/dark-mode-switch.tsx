@@ -1,18 +1,19 @@
+'use client';
 import { cn } from '@/lib/utils/cn';
 import { Switch } from '@headlessui/react';
 import React from 'react';
 import { FlexBoxRow } from '../ui/flexbox-row';
 import { Icons } from '../icons';
 import { useTheme } from 'next-themes';
-import { useLocalStorage } from '@/lib/hooks/use-local-storage';
+import { localStorageKey, useLocalStorage } from '@/lib/hooks/use-local-storage';
 
 export const DarkModeSwitch = () => {
   const { systemTheme, theme, setTheme } = useTheme();
   const currentTheme = theme === 'system' ? systemTheme : theme;
 
-  const { getLocalStorage, setLocalStorage } = useLocalStorage<string>('dev-');
-  currentTheme && setLocalStorage('theme', currentTheme);
-  const themeFromLocalStorage = getLocalStorage('theme');
+  const { getLocalStorage, setLocalStorage } = useLocalStorage<string>();
+  currentTheme && setLocalStorage(localStorageKey.theme, currentTheme);
+  const themeFromLocalStorage = getLocalStorage(localStorageKey.theme);
 
   const isDarkMode = themeFromLocalStorage === 'dark' ?? currentTheme === 'dark';
 

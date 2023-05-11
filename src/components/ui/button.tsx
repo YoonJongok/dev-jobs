@@ -14,13 +14,16 @@ const buttonVariants = cva(
     'text-base',
     'font-bold',
     'border-transparent',
+    'dark:bg-violet-4',
+    'dark:hover:bg-violet-3',
+    'dark:text-white',
+    'dark:border-transparent',
   ],
   {
     variants: {
       intent: {
         primary: ['bg-violet-4', 'hover:bg-violet-3', 'text-white', 'border-transparent'],
         secondary: ['bg-violet-1', 'hover:bg-violet-2', 'text-violet-4', 'border-transparent'],
-        dark: ['bg-grey-4', 'hover:bg-grey-3', 'text-white'],
       },
       size: {
         base: ['px-6', 'py-4'],
@@ -35,7 +38,7 @@ const buttonVariants = cva(
     },
     compoundVariants: [
       {
-        intent: ['dark', 'primary', 'secondary'],
+        intent: ['primary', 'secondary'],
         size: 'base',
       },
     ],
@@ -43,7 +46,7 @@ const buttonVariants = cva(
 );
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends React.ComponentProps<'button'>,
     VariantProps<typeof buttonVariants> {}
 
 export const Button = ({
