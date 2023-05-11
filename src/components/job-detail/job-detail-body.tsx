@@ -4,7 +4,6 @@ import { FlexBoxColumn } from '../ui/flexbox-column';
 import { FlexBoxRow } from '../ui/flexbox-row';
 import { Icons } from '../icons';
 import { useJobDetailStore } from '@/store/job-detail';
-import { Button } from '../ui/button';
 import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { ApplyButton } from './apply-button';
 
