@@ -10,6 +10,12 @@ const kumbhSans = Kumbh_Sans({ subsets: ['latin'], variable: '--font-sans' });
 export const metadata = {
   title: 'Developer Job Platform',
   description: 'Implementing a job platform for developers',
+  icons: {
+    icon: {
+      url: '/favicon.png',
+      type: 'image/png',
+    },
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
