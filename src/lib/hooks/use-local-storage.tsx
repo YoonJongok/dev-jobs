@@ -32,18 +32,3 @@ export const useLocalStorage = <T,>(
   return { localStorageValue, setLocalStorageValue, clearLocalStorage };
 };
 
-// export const useLocalStorage = <T,>(prefix = 'dev-') => {
-//   return {
-//     getLocalStorage: (key: string): T | null => {
-//       return (
-//         typeof window !== undefined &&
-//         JSON.parse(window.localStorage.getItem(prefix + key) || 'null')
-//       );
-//     },
-//     setLocalStorage: (key: string, value: T) => {
-//       typeof window !== undefined &&
-//         window.localStorage.setItem(prefix + key, JSON.stringify(value));
-//     },
-//   };
-// };
-

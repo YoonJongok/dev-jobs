@@ -6,6 +6,7 @@ import { Icons } from '../icons';
 import { useJobDetailStore } from '@/store/job-detail';
 import { Button } from '../ui/button';
 import { useMediaQuery } from '@/lib/hooks/use-media-query';
+import { ApplyButton } from './apply-button';
 
 export const JobDetailBody = () => {
   const [jobDetail] = useJobDetailStore((state) => [state.jobDetail]);
@@ -29,9 +30,10 @@ export const JobDetailBody = () => {
                   <h3 className='font-bold mt-2 mb-3 '>{jobDetail.position}</h3>
                   <p className='text-violet-4 font-bold mb-2'>{jobDetail.location}</p>
                 </FlexBoxColumn>
-                <Button intent={'primary'} className='mb-8'>
-                  Apply Now
-                </Button>
+                <ApplyButton
+                  applyLink={jobDetail.apply}
+                  className='min-w-[145px] flex justify-center items-center py-4 rounded-md bg-violet-4 text-white font-bold capitalize mb-8'
+                />
               </FlexBoxRow>
             ) : (
               <>
@@ -45,9 +47,10 @@ export const JobDetailBody = () => {
                   <h3 className='font-bold mt-2 mb-3 '>{jobDetail.position}</h3>
                   <p className='text-violet-4 font-bold mb-2'>{jobDetail.location}</p>
                 </FlexBoxColumn>
-                <Button intent={'primary'} className='mb-8'>
-                  Apply Now
-                </Button>
+                <ApplyButton
+                  applyLink={jobDetail.apply}
+                  className='w-full flex justify-center items-center py-4 rounded-md bg-violet-4 text-white font-bold capitalize mb-8'
+                />
               </>
             )}
             <p className='text-base font-normal leading-[26px] dark:text-blue-2'>
@@ -104,17 +107,16 @@ export const JobDetailBody = () => {
               <h3 className='font-bold '>{jobDetail?.position}</h3>
               <p className='text-base text-blue-2'>{jobDetail?.company}</p>
             </FlexBoxColumn>
-            <Button intent={'primary'}>Apply Now</Button>
+            <ApplyButton
+              applyLink={jobDetail?.apply}
+              className='min-w-[145px] flex justify-center items-center py-4 rounded-md bg-violet-4 text-white font-bold capitalize'
+            />
           </>
         ) : (
-          <a
-            target='_blank'
-            href={jobDetail?.apply}
+          <ApplyButton
+            applyLink={jobDetail?.apply}
             className='w-full flex justify-center items-center py-4 rounded-md bg-violet-4 text-white font-bold capitalize'
-            rel='noreferrer'
-          >
-            Apply now
-          </a>
+          />
         )}
       </FlexBoxRow>
     </>
